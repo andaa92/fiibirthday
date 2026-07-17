@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Birthday Journey</title>
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Inline script untuk restorasi state dashboard secara instan -->
+  <script>
+    try {
+      if (JSON.parse(localStorage.getItem('birthday-surprise:progressPage')) === 'dashboard') {
+        document.documentElement.classList.add('is-dashboard-restore');
+      }
+    } catch (e) {}
+  </script>
+</head>
+<body>
+
+  <!-- Layar Pemuatan Halaman (Loader) -->
+  <div class="journey-loader" id="journey-loader" aria-label="Memuat dashboard">
+    <div class="journey-loader__card"></div>
+  </div>
+
+  <!-- Alur Utama Aplikasi (Journey) -->
+  <main class="journey">
+    
+    <!-- Langkah 1: Fitur Love Meter -->
+    <section class="journey-step" id="love-meter-step">
+      <div class="page-content step-panel">
+        <div class="panel panel--narrow stack">
+          <h1>Love Meter</h1>
+          <p class="meter__instruction">Tahan untuk menunjukkan rasa sayang kamu ke aku</p>
+          
+          <div id="love-meter-control" class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="love-meter-fill" class="meter__fill"></div>
+          </div>
+          
+          <strong id="love-meter-value" class="meter__value">0%</strong>
+          <button id="love-meter-hold-button" class="button button--primary" type="button">Tahan di sini</button>
+          <p id="meter-error" class="form-message" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Langkah 2: Tampilan Dashboard (Awalnya Terkunci) -->
+    <section class="journey-step is-locked" id="dashboard-step">
+      <div class="page-content dashboard-layout">
+        
+        <!-- Bagian Utama Dashboard: Pemutar Musik & Ucapan -->
+        <div class="dashboard-hero">
+          <div class="dashboard-music-card">
+            <img id="dashboard-album-cover" class="dashboard-music-card__cover" src="assets/images/album-cover.svg" alt="Cover album">
+            
+            <div class="dashboard-music-card__details">
+              <small id="dashboard-track-artist">Artist Name</small>
+              <strong id="dashboard-track-title">Song One</strong>
+              
+              <div class="dashboard-music-card__progress">
+                <span id="dashboard-music-current">0:00</span>
+                <input id="dashboard-music-progress" type="range" min="0" max="100" value="0" aria-label="Progress lagu">
+                <span id="dashboard-music-duration">0:00</span>
+              </div>
+            </div>
+            
+            <button id="dashboard-play-button" class="dashboard-music-card__play" type="button" aria-label="Play">▶</button>
+            <audio id="dashboard-audio" preload="metadata"></audio>
+          </div>
+
+          <header class="dashboard-banner dashboard-banner--lyrics">
+            <video class="dashboard-banner__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+              <source src="assets/videos/video-dump.mp4" type="video/mp4">
+            </video>
+            <div class="dashboard-banner__video-overlay" aria-hidden="true"></div>
+            <div class="dashboard-lyrics" id="dashboard-lyrics" aria-live="polite"></div>
+          </header>
+        </div>
+
+        <!-- Slideshow Foto Galeri -->
+        <div class="photo-slideshow photo-slideshow--dashboard" aria-label="Slideshow foto kenangan">
+          <div class="photo-slideshow__track" id="music-slideshow"></div>
+        </div>
+
+        <!-- Menu Navigasi Konten Tab -->
+        <nav class="dashboard-tabs" aria-label="Menu kejutan">
+          <button class="dashboard-tab is-active" type="button" data-dashboard-view="gallery">Photo Dump</button>
+          <button class="dashboard-tab" type="button" data-dashboard-view="letter">Love Letter</button>
+          <button class="dashboard-tab" type="button" data-dashboard-view="facts">Fun Facts</button>
+          <button class="dashboard-tab" type="button" data-dashboard-view="wishes">Wish Upon A Star</button>
+        </nav>
+
+        <!-- Kontainer Pengisian Konten Dinamis via JS -->
+        <section id="dashboard-content" class="dashboard-content" aria-live="polite"></section>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Komponen Overlay Modal Dialog -->
+  <div class="modal" id="app-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__content">
+      <button class="modal__close" type="button" aria-label="Tutup" data-modal-close>&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Skrip Ekosistem JavaScript -->
+  <script src="js/app.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/animation.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/loveMeter.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/wish.js"></script>
+  <script src="js/dashboard.js"></script>
+
+</body>
+</html>

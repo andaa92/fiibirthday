@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bunga Untukmu</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="flower-page-body">
+  <main class="flower-scene">
+    <button class="flower-back" type="button" data-route="surprise-choice" aria-label="Kembali ke pilihan kejutan">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5 7.5 12l7 7"></path></svg>
+      <span>Kembali</span>
+    </button>
+    <div id="petal-rain" class="petal-rain" aria-hidden="true"></div>
+    <section class="flower-message" aria-live="polite">
+      <p class="eyebrow">For You!</p>
+      <h1>May there always be little things that make you happy</h1>
+    </section>
+    <div id="flower-bouquet" class="flower-bouquet" aria-label="Buket bunga lily dan edelweiss">
+      <img src="assets/images/bouquet-lily-edelweiss.png" alt="Buket lily putih dan bunga edelweiss">
+    </div>
+    <button id="flower-continue-button" class="button button--primary flower-continue" type="button">Open it </button>
+  </main>
+  <div class="modal" id="app-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__content">
+      <button class="modal__close" type="button" aria-label="Tutup" data-modal-close>&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/animation.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/loveMeter.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/wish.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="js/flower.js"></script>
+</body>
+</html>

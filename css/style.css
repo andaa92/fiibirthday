@@ -1,0 +1,491 @@
+:root { --bg:#f7f5f1; --surface:#fff; --text:#252525; --muted:#707070; --line:#ddd8d0; --accent:#c95b73; --radius:12px; --space:1rem; font-family:Arial, sans-serif; color:var(--text); background:var(--bg); }
+* { box-sizing:border-box; } body { margin:0; } button,input,textarea { font:inherit; } button { cursor:pointer; } .app-shell { min-height:100vh; } .page { display:none; min-height:100vh; padding:2rem 1rem; } .page.active { display:block; } .page--center { display:grid; place-items:center; } .page-content { width:min(100%, 960px); margin:auto; } .panel { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:clamp(1.25rem,4vw,2rem); } .panel--narrow { width:min(100%,420px); } .stack { display:grid; gap:var(--space); } .page-header { margin-bottom:.5rem; } .page-header--with-action { display:flex; justify-content:space-between; align-items:start; gap:1rem; } h1,h2,p { margin:0; } h1 { font-size:clamp(1.7rem,5vw,2.5rem); } .eyebrow,.muted { color:var(--muted); } .eyebrow { font-size:.8rem; text-transform:uppercase; letter-spacing:.12em; } label { font-weight:600; } input,textarea { width:100%; padding:.75rem; border:1px solid var(--line); border-radius:8px; background:#fff; } textarea { min-height:110px; resize:vertical; } .button { border:1px solid var(--text); border-radius:8px; padding:.7rem 1rem; background:transparent; } .button--primary { background:var(--text); color:#fff; } .button--align-end { justify-self:end; } .form-message { min-height:1.2em; color:#a52d45; } .is-hidden { display:none!important; }
+.meter { height:18px; overflow:hidden; border-radius:99px; background:var(--line); } .meter__instruction { text-align:center; color:var(--muted); } .meter__fill { height:100%; width:0; background:var(--accent); transition:width .08s linear; } .meter__value { font-size:2rem; text-align:center; } .music-player { display:grid; gap:1rem; } .music-player__title { font-weight:700; } .music-player__timeline { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:.6rem; font-size:.85rem; } .music-player__controls { display:flex; flex-wrap:wrap; gap:.5rem; } .music-player__controls button { padding:.5rem .75rem; border:1px solid var(--line); background:#fff; border-radius:6px; } .music-player__controls button[aria-pressed="true"] { border-color:var(--accent); color:var(--accent); } .music-player__volume { display:flex; align-items:center; gap:1rem; } .playlist,.fact-list { display:grid; gap:.5rem; padding:0; margin:0; list-style:none; } .playlist button { width:100%; text-align:left; padding:.6rem; border:0; background:#f3f1ee; border-radius:6px; } .playlist button.is-current { outline:2px solid var(--accent); } .countdown { display:flex; flex-wrap:wrap; gap:.5rem; font-weight:700; } .countdown span { padding:.6rem; background:#f3f1ee; border-radius:6px; }
+.pin-keypad { display:grid; grid-template-columns:repeat(3, 1fr); gap:.5rem; } .pin-keypad button { min-height:48px; border:1px solid var(--line); border-radius:8px; background:#fff; font-weight:700; } .pin-keypad button:hover { border-color:var(--accent); } .pin-keypad__clear { color:var(--muted); }
+.card-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; } .card { min-height:150px; display:grid; align-content:space-between; text-align:left; padding:1rem; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); } .card span { color:var(--muted); } .card strong { font-size:1.15rem; } .gallery-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; } .gallery-item { overflow:hidden; padding:0; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); } .gallery-item img { display:block; width:100%; aspect-ratio:1; object-fit:cover; } .gallery-item span { display:block; padding:.6rem; text-align:left; } .letter { min-height:240px; white-space:pre-wrap; line-height:1.7; } .fact { padding:1rem; border-left:4px solid var(--accent); background:var(--surface); } .wish-sky { position:relative; min-height:360px; overflow:hidden; border:1px dashed var(--line); border-radius:var(--radius); background:#29242a; } .wish-star { position:absolute; border:0; background:transparent; color:#ffe482; font-size:1.5rem; } .wish-star:hover { transform:scale(1.2); }
+.modal { display:none; position:fixed; inset:0; z-index:10; place-items:center; padding:1rem; } .modal.is-open { display:grid; } .modal__backdrop { position:absolute; inset:0; background:rgba(0,0,0,.5); } .modal__content { position:relative; width:min(100%,640px); max-height:90vh; overflow:auto; padding:2.5rem 1.5rem 1.5rem; border-radius:var(--radius); background:#fff; } .modal__content img { display:block; width:100%; max-height:65vh; object-fit:contain; } .modal__close { position:absolute; top:.7rem; right:.7rem; border:0; background:transparent; font-size:1.8rem; } .modal__content h2 { margin-bottom:.75rem; }
+@media (max-width:500px) { .page { padding:1rem; } .page-header--with-action { align-items:center; } .button--secondary { padding:.5rem .7rem; } }
+
+/* Visual layer: these tokens and component classes can be redesigned independently. */
+:root { --bg:#110d1a; --surface:rgba(42,29,57,.78); --surface-solid:#291d39; --text:#fff9fb; --muted:#c7b9d1; --line:rgba(255,255,255,.15); --accent:#ff6b9d; --accent-soft:#ffb4cc; --gold:#ffd98b; --radius:24px; font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--bg); }
+body { min-height:100vh; background:radial-gradient(circle at 12% 12%, #543356 0, transparent 29%),radial-gradient(circle at 89% 80%, #503247 0, transparent 28%),linear-gradient(135deg,#110d1a,#20152d 52%,#151023); color:var(--text); }
+body::before,body::after { content:""; position:fixed; pointer-events:none; border-radius:50%; filter:blur(1px); opacity:.55; } body::before { width:7px; height:7px; left:8%; top:22%; background:#fff; box-shadow:26vw 12vh #fff6d2,70vw 5vh #fff,82vw 55vh #fff6d2,15vw 73vh #fff,55vw 84vh #fff; } body::after { width:280px; height:280px; right:-90px; top:15%; background:rgba(255,107,157,.13); filter:blur(45px); }
+.page { position:relative; align-items:center; animation:page-enter .42s ease both; } .page.active { display:grid; } .page-content { position:relative; z-index:1; } .page--center .panel { text-align:center; }
+.panel { border:1px solid var(--line); background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(255,255,255,.035)); box-shadow:0 25px 70px rgba(0,0,0,.24); backdrop-filter:blur(18px); }
+.panel--narrow { padding:clamp(1.7rem,5vw,2.7rem); } .eyebrow { color:var(--accent-soft); font-weight:800; letter-spacing:.2em; } h1 { font-family:Georgia, "Times New Roman", serif; font-weight:500; letter-spacing:-.045em; } h2 { font-family:Georgia, "Times New Roman", serif; } .muted,.meter__instruction { color:var(--muted); }
+input,textarea { color:var(--text); border-color:var(--line); background:rgba(7,4,13,.28); } input:focus,textarea:focus { outline:2px solid var(--accent); outline-offset:2px; } #pin-input { max-width:180px; margin:auto; text-align:center; letter-spacing:.45em; font-size:1.35rem; }
+.button { border-color:rgba(255,255,255,.28); color:var(--text); font-weight:750; transition:transform .2s ease, background .2s ease, box-shadow .2s ease; } .button:hover { transform:translateY(-2px); } .button--primary { border:0; background:linear-gradient(135deg,var(--accent),#cf4b83); box-shadow:0 11px 24px rgba(255,107,157,.25); } .button--secondary { background:rgba(255,255,255,.08); }
+.pin-keypad { max-width:285px; margin:auto; } .pin-keypad button { color:var(--text); border-color:var(--line); background:rgba(255,255,255,.07); transition:background .15s, transform .15s; } .pin-keypad button:hover { border-color:var(--accent); background:rgba(255,107,157,.19); transform:translateY(-1px); } .form-message { color:#ff9ebd; }
+.pin-keypad { max-width:310px; gap:.8rem; } #pin-input { letter-spacing:.6em; }
+.pin-keypad,#pin-input { width:min(100%,310px); } #pin-input { max-width:310px; }
+
+/* Lavender Dream theme */
+:root { --bg:#1D1730; --surface:rgba(57,45,84,.8); --surface-solid:#2A2140; --text:#F4EFFF; --muted:#CBBDE8; --line:rgba(229,219,255,.18); --accent:#C7B6FF; --accent-soft:#E5DBFF; --gold:#FFD7F0; } body { background:radial-gradient(circle at 12% 12%,#6E5AA6 0,transparent 29%),radial-gradient(circle at 89% 80%,#4C3975 0,transparent 28%),linear-gradient(135deg,#1D1730,#2B2145 52%,#171124); } .button--primary { background:linear-gradient(135deg,#B9A5F4,#826DC2); box-shadow:0 11px 24px rgba(150,126,221,.28); } .meter__fill { background:linear-gradient(90deg,#AA94EB,#E5DBFF); box-shadow:0 0 18px rgba(199,182,255,.7); } .dashboard-banner { background:linear-gradient(120deg,rgba(137,112,196,.57),rgba(71,51,111,.65)); } .dashboard-music-card__progress input { accent-color:#8E78D5; } .dashboard-music-card__play { background:#8E78D5; box-shadow:0 5px 10px rgba(142,120,213,.35); } .journey-loader { background:radial-gradient(circle at 30% 20%,rgba(199,182,255,.24),transparent 32%),linear-gradient(135deg,#1D1730,#2A2140); }
+
+/* Navy & Champagne theme */
+:root { --bg:#101827; --surface:rgba(28,42,66,.82); --surface-solid:#17243A; --text:#FFF8E9; --muted:#C8D1DF; --line:rgba(230,196,142,.2); --accent:#E6C48E; --accent-soft:#F5E5BE; --gold:#E6C48E; } body { background:radial-gradient(circle at 12% 12%,#30456B 0,transparent 29%),radial-gradient(circle at 89% 80%,#273956 0,transparent 28%),linear-gradient(135deg,#101827,#16243A 52%,#0B1220); } .button--primary { color:#17243A; background:linear-gradient(135deg,#F1D7A3,#C99E58); box-shadow:0 11px 24px rgba(230,196,142,.26); } .meter__fill { background:linear-gradient(90deg,#C99E58,#F5E5BE); box-shadow:0 0 18px rgba(230,196,142,.65); } .dashboard-banner { background:linear-gradient(120deg,rgba(48,69,107,.87),rgba(23,36,58,.84)); } .dashboard-music-card__progress input { accent-color:#C99E58; } .dashboard-music-card__play { background:#C99E58; box-shadow:0 5px 10px rgba(201,158,88,.35); } .journey-loader { background:radial-gradient(circle at 30% 20%,rgba(230,196,142,.18),transparent 32%),linear-gradient(135deg,#101827,#17243A); }
+
+/* Deep night-sky refinement */
+:root { --bg:#060A14; --surface:rgba(13,23,45,.86); --surface-solid:#0B1428; --text:#FFF9EC; --muted:#B8C3D8; --line:rgba(230,196,142,.16); } body { background:radial-gradient(circle at 14% 10%,#192B52 0,transparent 25%),radial-gradient(circle at 86% 76%,#142445 0,transparent 26%),linear-gradient(135deg,#060A14,#0A1225 55%,#030611); } .dashboard-banner { background:linear-gradient(120deg,rgba(23,42,79,.92),rgba(7,16,34,.92)); } .journey-loader { background:radial-gradient(circle at 30% 20%,rgba(230,196,142,.12),transparent 32%),linear-gradient(135deg,#060A14,#0B1428); }
+
+/* Force all remaining header and loading surfaces into the night-sky palette. */
+body::after { background:rgba(230,196,142,.1); } .dashboard-banner { background:linear-gradient(125deg,#162B52,#081226 72%) !important; border-color:rgba(230,196,142,.22); } .dashboard-music-card { color:var(--text); background:linear-gradient(145deg,#142747,#091426) !important; border:1px solid rgba(230,196,142,.2); } .dashboard-music-card strong { color:var(--text); } .dashboard-music-card small,.dashboard-music-card__progress { color:var(--muted); } .dashboard-music-card__play { color:#071126; background:#E6C48E !important; box-shadow:0 5px 10px rgba(230,196,142,.28); } .dashboard-music-card__progress input { accent-color:#E6C48E !important; } .journey-loader { background:radial-gradient(circle at 30% 20%,rgba(230,196,142,.12),transparent 32%),linear-gradient(135deg,#060A14,#0B1428) !important; }
+.pin-keypad button:hover,.pin-keypad button:active { border-color:#E6C48E; background:rgba(230,196,142,.16); }
+
+/* Formal one-sheet invitation paper. */
+.invitation-sheet { position:relative; overflow:hidden; color:#18243B; border:0; border-radius:3px; background:linear-gradient(135deg,#FFFDF6,#F5E9D0); box-shadow:0 28px 70px rgba(0,0,0,.45); } .invitation-sheet::before { content:""; position:absolute; inset:12px; border:1px solid #B88A3F; pointer-events:none; } .invitation-sheet::after { content:""; position:absolute; inset:20px; border:1px solid rgba(184,138,63,.38); pointer-events:none; } .invitation-sheet > * { position:relative; z-index:1; } .invitation-sheet .eyebrow { color:#6F5125; } .invitation-sheet h1 { color:#1C3154; } .invitation-sheet p { color:#334158; } .invitation-sheet .invitation-card__line { background:#B88A3F; } .invitation-sheet .invitation-card__date { color:#6F5125; } .invitation-sheet .invitation-card__ornament { color:#B88A3F; } .invitation-sheet .button--locked { color:#788193; border-color:#C9B58A; background:rgba(255,255,255,.38); } .invitation-sheet .button--primary { color:#1C3154; background:linear-gradient(135deg,#F2D394,#C99E58); box-shadow:0 8px 16px rgba(140,98,35,.2); }
+
+/* Navy-and-champagne textured paper asset. */
+.invitation-sheet { width:min(100%,560px); min-height:clamp(720px,130vw,1040px); align-content:center; padding:clamp(6rem,13vw,9rem) clamp(2.7rem,8vw,4.5rem); background:#F6EEDC url("../assets/images/invitation-paper.png?v=2") center/100% 100% no-repeat; box-shadow:0 28px 70px rgba(0,0,0,.55); } .invitation-sheet::before,.invitation-sheet::after { display:none; } .invitation-sheet .eyebrow { color:#735326; } .invitation-sheet h1 { color:#13294B; } .invitation-sheet p { color:#263C59; } .invitation-sheet .invitation-card__date { color:#735326; } .invitation-sheet .invitation-card__ornament { color:#C99E58; } @media (max-width:500px) { .invitation-sheet { min-height:clamp(680px,190vw,820px); padding:5rem 2.5rem; } }
+.invitation-paper-layout { width:auto; height:min(84svh,720px); min-height:0; aspect-ratio:.56; padding:clamp(3.8rem,10vh,6rem) clamp(2rem,7vw,3.6rem); background:#F6EEDC url("../assets/images/invitation-paper.png?v=3") center/100% 100% no-repeat; } .invitation-paper-layout h1 { font-size:clamp(1.8rem,6vw,3.1rem); } .invitation-paper-layout p { font-size:clamp(.78rem,2.2vw,1rem); } .invitation-paper-layout .invitation-card__actions { margin-top:clamp(.5rem,3vh,1.2rem); } @media (max-width:500px) { .invitation-paper-layout { height:min(82svh,620px); min-height:0; padding:3.4rem 2.1rem; } .invitation-paper-layout .invitation-card__ornament { font-size:1.35rem; } .invitation-paper-layout .invitation-card__actions { gap:.45rem; } .invitation-paper-layout .button { padding:.55rem .7rem; } }
+.meter { height:16px; background:rgba(255,255,255,.12); box-shadow:inset 0 1px 3px rgba(0,0,0,.3); } .meter__fill { background:linear-gradient(90deg,#ff6b9d,#ffd0df); box-shadow:0 0 18px rgba(255,107,157,.75); } .meter__value { font-size:clamp(2.7rem,9vw,4.5rem); color:var(--gold); font-family:Georgia,serif; } #love-meter-hold-button { margin-top:.25rem; min-height:54px; } #love-meter-hold-button:active { transform:scale(.97); box-shadow:0 4px 14px rgba(255,107,157,.2); }
+.page-header { display:flex; flex-direction:column; gap:.35rem; margin-bottom:1rem; } .page-header--with-action { flex-direction:row; } .card-grid { grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); } .card { min-height:175px; color:var(--text); border-color:var(--line); background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.035)); box-shadow:0 16px 30px rgba(0,0,0,.18); transition:transform .25s ease, border-color .25s ease; } .card:hover { transform:translateY(-7px); border-color:var(--accent); } .card:nth-child(2) { background:linear-gradient(145deg,rgba(255,191,215,.2),rgba(255,255,255,.035)); } .card:nth-child(3) { background:linear-gradient(145deg,rgba(255,216,139,.17),rgba(255,255,255,.035)); } .card span { color:var(--accent-soft); font-weight:800; } .card strong { font-family:Georgia,serif; font-size:1.45rem; }
+.countdown span { min-width:76px; text-align:center; color:var(--gold); border:1px solid var(--line); background:rgba(255,255,255,.08); } .gallery-item,.fact { color:var(--text); border-color:var(--line); background:rgba(255,255,255,.08); } .gallery-item span { padding:.8rem; } .fact { border-left-color:var(--accent); } .letter { font-family:Georgia,serif; font-size:1.12rem; } .wish-sky { border-color:rgba(255,255,255,.18); background:radial-gradient(circle at 45% 25%,#45305c,#160f24 72%); } .modal__content { color:var(--text); border:1px solid var(--line); background:var(--surface-solid); } .modal__close { color:var(--text); }
+@keyframes page-enter { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+@media (max-width:500px) { .page-header--with-action { align-items:flex-start; } .card { min-height:145px; } }
+
+/* Vertical guided journey after login. */
+.journey { scroll-snap-type:y proximity; } .journey-step { position:relative; min-height:100vh; display:grid; align-items:center; padding:3rem 1rem; scroll-snap-align:start; transition:opacity .45s ease, transform .45s ease; } .journey-step .page-content { width:min(100%,960px); margin:auto; } .step-panel { display:grid; place-items:center; } .journey-step.is-locked,.journey-step.is-completed { display:none; }
+
+/* Dashboard layout: 30% music card and 70% celebration banner. */
+.dashboard-layout { display:grid; gap:1.6rem; } .dashboard-hero { display:grid; grid-template-columns:3fr 7fr; gap:1rem; } .dashboard-music-card,.dashboard-banner { min-height:180px; border:1px solid var(--line); border-radius:var(--radius); } .dashboard-music-card { display:grid; align-content:center; justify-items:start; gap:.85rem; padding:1.4rem; color:var(--text); text-align:left; background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.035)); } .dashboard-music-card__icon { display:grid; place-items:center; width:48px; height:48px; border-radius:50%; color:var(--bg); background:var(--gold); font-size:1.4rem; } .dashboard-music-card small,.dashboard-menu-card small { display:block; color:var(--muted); } .dashboard-music-card strong { display:block; font-family:Georgia,serif; font-size:1.12rem; } .dashboard-banner { display:grid; align-content:center; padding:clamp(1.5rem,4vw,2.5rem); background:linear-gradient(120deg,rgba(255,107,157,.37),rgba(111,73,140,.42)); box-shadow:0 18px 35px rgba(0,0,0,.2); } .dashboard-banner h1 { font-size:clamp(2rem,5vw,3.5rem); } .dashboard-banner p:not(.eyebrow) { color:var(--muted); } .dashboard-menu-heading { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; } .dashboard-menu-heading h2 { color:var(--gold); } .dashboard-menu-heading p { color:var(--muted); } .dashboard-menu-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; } .dashboard-menu-card { position:relative; min-height:190px; display:grid; align-content:start; justify-items:start; gap:.65rem; padding:1.25rem; overflow:hidden; color:var(--text); text-align:left; border:1px solid var(--line); border-radius:18px; background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035)); transition:transform .22s ease,border-color .22s ease; } .dashboard-menu-card:hover { transform:translateY(-6px); border-color:var(--accent); } .dashboard-menu-card__number { position:absolute; top:.9rem; right:1rem; color:var(--accent-soft); font-size:.75rem; font-weight:800; } .dashboard-menu-card__icon { display:grid; place-items:center; width:42px; height:42px; border-radius:50%; color:var(--bg); background:var(--accent-soft); font-size:1.2rem; } .dashboard-menu-card strong { font-family:Georgia,serif; font-size:1.2rem; } .dashboard-menu-card:nth-child(2) .dashboard-menu-card__icon { background:var(--gold); } .dashboard-menu-card:nth-child(3) .dashboard-menu-card__icon { background:#a8e5dc; } .dashboard-menu-card:nth-child(4) .dashboard-menu-card__icon { background:#d8b3ff; }
+.dashboard-content { min-height:240px; padding-top:.25rem; animation:page-enter .3s ease both; } .dashboard-content__heading { margin-bottom:1rem; } .dashboard-content__heading h2 { color:var(--gold); }
+.dashboard-tabs { display:flex; flex-wrap:wrap; gap:1.35rem; align-items:center; border-bottom:1px solid var(--line); } .dashboard-tab { position:relative; padding:.35rem 0 .8rem; border:0; color:var(--muted); background:transparent; font-size:1rem; font-weight:700; } .dashboard-tab::after { content:""; position:absolute; right:0; bottom:-1px; left:0; height:3px; border-radius:999px; background:transparent; transition:background .2s ease; } .dashboard-tab:hover,.dashboard-tab.is-active { color:var(--gold); } .dashboard-tab.is-active::after { background:var(--accent); }
+
+/* Continuous photo slideshow for the stage after the Love Meter. */
+.photo-slideshow { overflow:hidden; border:1px solid var(--line); border-radius:var(--radius); background:rgba(255,255,255,.06); } .photo-slideshow__track { display:flex; width:max-content; gap:1rem; padding:1rem; animation:photo-slide 22s linear infinite; } .photo-slideshow__track img { width:clamp(190px,32vw,330px); height:clamp(260px,42vw,420px); flex:0 0 auto; border-radius:16px; object-fit:cover; box-shadow:0 14px 25px rgba(0,0,0,.25); } @keyframes photo-slide { from { transform:translateX(0); } to { transform:translateX(calc(-50% - .5rem)); } } @media (prefers-reduced-motion:reduce) { .photo-slideshow__track { animation-play-state:paused; } }
+.photo-slideshow--dashboard .photo-slideshow__track img { width:clamp(150px,20vw,230px); height:clamp(160px,23vw,260px); }
+.dashboard-music-card { display:grid; grid-template-columns:62px minmax(0,1fr) 34px; align-items:center; gap:.65rem; padding:1rem; text-align:left; } .dashboard-music-card__cover { width:62px; height:62px; border-radius:10px; object-fit:cover; } .dashboard-music-card__details { min-width:0; } .dashboard-music-card small { display:block; overflow:hidden; color:var(--muted); text-overflow:ellipsis; white-space:nowrap; } .dashboard-music-card strong { display:block; overflow:hidden; font-family:Georgia,serif; font-size:1.05rem; text-overflow:ellipsis; white-space:nowrap; } .dashboard-music-card__progress { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:.35rem; margin-top:.35rem; font-size:.65rem; color:var(--muted); } .dashboard-music-card__progress input { min-width:0; padding:0; accent-color:var(--accent); } .dashboard-music-card__play { display:grid; place-items:center; width:34px; height:34px; padding:0; border:0; border-radius:50%; color:var(--bg); background:var(--gold); }
+
+/* Compact album player inspired by the supplied player reference. */
+.dashboard-music-card { display:flex; flex-direction:column; justify-content:center; min-height:220px; gap:.5rem; padding:.65rem; color:#201827; text-align:center; border:0; border-radius:22px; background:#fff; box-shadow:0 14px 28px rgba(0,0,0,.2); } .dashboard-music-card__cover { width:100%; height:96px; border-radius:14px; object-fit:cover; box-shadow:0 7px 15px rgba(0,0,0,.18); } .dashboard-music-card__details { width:100%; min-width:0; } .dashboard-music-card small { color:#665f6b; font-size:.7rem; } .dashboard-music-card strong { color:#211827; font-size:1rem; } .dashboard-music-card__progress { margin-top:.4rem; color:#5e5862; } .dashboard-music-card__progress input { accent-color:#369ee5; } .dashboard-music-card__play { flex:0 0 auto; width:38px; height:38px; margin-top:.1rem; color:#fff; background:#369ee5; box-shadow:0 5px 10px rgba(54,158,229,.32); } .dashboard-hero { align-items:stretch; } @media (max-width:720px) { .dashboard-music-card { min-height:210px; max-width:320px; } }
+.dashboard-hero { grid-template-columns:minmax(280px,340px) minmax(0,1fr); align-items:stretch; } .dashboard-music-card,.dashboard-banner { min-height:340px; } .dashboard-music-card__cover { height:175px; } @media (max-width:720px) { .dashboard-hero { grid-template-columns:1fr; } .dashboard-music-card,.dashboard-banner { min-height:300px; width:100%; max-width:none; } .dashboard-music-card__cover { height:155px; } }
+@media (max-width:720px) { .dashboard-hero { grid-template-columns:minmax(135px,.8fr) minmax(0,1fr); gap:.6rem; align-items:stretch; } .dashboard-music-card,.dashboard-banner { min-height:220px; width:auto; } .dashboard-music-card { padding:.45rem; gap:.35rem; border-radius:16px; } .dashboard-music-card__cover { height:92px; border-radius:10px; } .dashboard-music-card strong { font-size:.78rem; } .dashboard-music-card small { font-size:.58rem; } .dashboard-music-card__progress { gap:.2rem; margin-top:.2rem; font-size:.52rem; } .dashboard-music-card__play { width:30px; height:30px; } .dashboard-banner { padding:1rem; border-radius:16px; } .dashboard-banner h1 { font-size:clamp(1.35rem,7vw,2rem); } .dashboard-banner p { font-size:.75rem; } }
+
+.countdown--large { justify-content:center; font-size:1.2rem; } .countdown--large:empty { display:none; } .invitation-card { width:min(100%,560px); display:grid; gap:1.15rem; padding:clamp(2rem,6vw,4rem); color:var(--text); text-align:center; border:1px solid var(--gold); border-radius:8px; background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.04)); box-shadow:0 30px 70px rgba(0,0,0,.3),inset 0 0 0 8px rgba(255,217,139,.09); } .invitation-card h1 { color:var(--gold); font-size:clamp(2.5rem,8vw,4rem); } .invitation-card__ornament { color:var(--gold); font-size:2rem; } .invitation-card__line { width:72px; height:1px; margin:auto; background:var(--gold); } .invitation-card__date { color:var(--accent-soft); font-weight:700; } .invitation-card__actions { display:flex; justify-content:center; flex-wrap:wrap; gap:.75rem; margin-top:1rem; } .button--locked { color:var(--muted); border-color:var(--line); background:rgba(255,255,255,.05); cursor:not-allowed; opacity:.7; }
+.countdown i { align-self:center; color:var(--gold); font-style:normal; font-size:1.5rem; }
+@media (max-width:720px) { .dashboard-hero { grid-template-columns:1fr; } .dashboard-menu-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .dashboard-music-card,.dashboard-banner { min-height:145px; } .dashboard-menu-heading { display:grid; } } @media (max-width:390px) { .dashboard-menu-grid { grid-template-columns:1fr; } }
+@media (max-width:720px) { .dashboard-tabs { flex-wrap:nowrap; overflow-x:auto; gap:1.15rem; padding-right:1rem; scrollbar-width:thin; } .dashboard-tab { flex:0 0 auto; white-space:nowrap; } }
+
+/* Final mobile override: dashboard header always stays side-by-side. */
+@media (max-width:720px) { .dashboard-hero { grid-template-columns:42% minmax(0,58%) !important; gap:.5rem; align-items:stretch; } .dashboard-music-card,.dashboard-banner { min-height:190px !important; } .dashboard-music-card { width:auto !important; padding:.4rem; gap:.25rem; } .dashboard-music-card__cover { height:78px; } .dashboard-music-card strong { font-size:.7rem; } .dashboard-music-card small { font-size:.52rem; } .dashboard-music-card__progress { font-size:.46rem; } .dashboard-music-card__play { width:28px; height:28px; } .dashboard-banner { width:auto !important; padding:.8rem; } .dashboard-banner h1 { font-size:clamp(1.1rem,6vw,1.7rem); } .dashboard-banner p { font-size:.65rem; } }
+
+/* Make song metadata easy to read on the white music card. */
+.dashboard-music-card #dashboard-track-artist { color:#ffffff !important; font-weight:700; }
+.dashboard-music-card #dashboard-track-title { color:#ffffff !important; font-weight:800; }
+
+/* Flower or gift choice directly after the Love Meter. */
+.choice-page { width:min(100%,680px); display:grid; justify-items:center; gap:1rem; text-align:center; }
+.choice-page h1 { color:var(--gold); font-size:clamp(2.2rem,7vw,4rem); }
+.choice-page__intro { color:var(--muted); }
+.surprise-choice-grid { width:100%; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1rem 0 .6rem; }
+.surprise-choice { min-height:235px; display:grid; place-items:center; align-content:center; gap:.65rem; padding:1.5rem 1rem; color:var(--text); border:1px solid var(--line); border-radius:22px; background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(255,255,255,.035)); transition:transform .2s ease,border-color .2s ease,background .2s ease; }
+.surprise-choice:hover,.surprise-choice.is-selected { transform:translateY(-5px); border-color:var(--gold); background:linear-gradient(145deg,rgba(230,196,142,.24),rgba(255,255,255,.06)); }
+.surprise-choice__icon { color:var(--gold); font-size:4rem; line-height:1; }
+.surprise-choice strong { font-family:Georgia,serif; font-size:1.6rem; }
+.surprise-choice small { color:var(--muted); line-height:1.45; }
+.surprise-choice--flower-teaser { position:relative; display:grid; place-items:center; overflow:hidden; padding:.75rem; }
+.surprise-choice--flower-teaser .surprise-choice__icon,.surprise-choice--flower-teaser strong,.surprise-choice--flower-teaser small { display:none; }
+.surprise-choice--flower-teaser img { width:min(100%,155px); max-height:190px; object-fit:contain; filter:brightness(0); opacity:.9; transition:transform .25s ease,opacity .25s ease; }
+.surprise-choice--flower-teaser:hover img { transform:scale(1.05); opacity:1; }
+.surprise-choice--flower-teaser.is-revealed img { filter:none; opacity:1; }
+.surprise-choice.is-revealed .surprise-choice__question { display:none; }
+.surprise-choice--gift-teaser { position:relative; display:grid; place-items:center; overflow:hidden; padding:.75rem; }
+.surprise-choice--gift-teaser .surprise-choice__icon,.surprise-choice--gift-teaser strong,.surprise-choice--gift-teaser small { display:none; }
+.surprise-choice__gift-silhouette { width:min(100%,130px); max-height:170px; color:#000; opacity:.9; transition:transform .25s ease,opacity .25s ease; }
+.surprise-choice--gift-teaser:hover .surprise-choice__gift-silhouette { transform:scale(1.05); opacity:1; }
+.surprise-choice__gift-image { display:none; width:min(100%,165px); max-height:180px; object-fit:contain; }
+.surprise-choice--gift-teaser.is-revealed .surprise-choice__gift-silhouette { display:none; }
+.surprise-choice--gift-teaser.is-revealed .surprise-choice__gift-image { display:block; animation:reveal-choice .38s ease both; }
+@keyframes reveal-choice { from { opacity:0; transform:scale(.8); } to { opacity:1; transform:scale(1); } }
+.surprise-choice__question { position:absolute; color:#fff9ec; font-family:Arial,sans-serif; font-size:2.7rem; font-weight:600; line-height:1; text-shadow:0 3px 10px rgba(0,0,0,.65); }
+#choice-continue-button:disabled { cursor:not-allowed; opacity:.45; filter:grayscale(1); }
+@media (max-width:480px) { .surprise-choice-grid { gap:.7rem; } .surprise-choice { min-height:190px; padding:1rem .65rem; } .surprise-choice__icon { font-size:3rem; } .surprise-choice strong { font-size:1.3rem; } .surprise-choice small { font-size:.75rem; } }
+
+/* Fullscreen flower reveal after selecting the flower surprise. */
+.flower-page-body { overflow:hidden; background:radial-gradient(circle at 50% 18%,#203967 0,transparent 32%),linear-gradient(145deg,#040914,#0b1730 65%,#050a16); }
+.flower-scene { position:relative; isolation:isolate; min-height:100svh; display:grid; place-items:center; align-content:center; gap:1.4rem; overflow:hidden; padding:2rem; text-align:center; }
+.flower-back { position:absolute; z-index:2; top:1rem; left:1rem; display:inline-flex; align-items:center; gap:.3rem; min-height:30px; padding:.22rem .55rem .22rem .28rem; color:#fff9ec; border:1px solid rgba(230,196,142,.48); border-radius:999px; background:linear-gradient(135deg,rgba(30,53,95,.82),rgba(7,17,37,.72)); box-shadow:0 7px 20px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.1); font-size:.64rem; font-weight:800; letter-spacing:.02em; backdrop-filter:blur(8px); transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease; }
+.flower-back svg { width:20px; height:20px; padding:4px; overflow:visible; border:1px solid rgba(230,196,142,.28); border-radius:50%; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.8; }
+.flower-back:hover { transform:translateX(-4px); border-color:#f5e5be; background:linear-gradient(135deg,rgba(54,83,138,.94),rgba(13,29,60,.9)); box-shadow:0 9px 24px rgba(0,0,0,.3),0 0 0 3px rgba(230,196,142,.1); }
+.flower-back:active { transform:translateX(-2px) scale(.97); }
+.petal-rain { position:absolute; z-index:-1; inset:0; overflow:hidden; }
+.flower-petal { position:absolute; top:-50px; left:var(--x); width:var(--size); height:calc(var(--size) * 1.25); border-radius:70% 0 70% 0; opacity:0; background:linear-gradient(135deg,#f7d48b,#d1798d); }
+.flower-message { max-width:620px; }
+.flower-message .eyebrow { color:var(--gold); }
+.flower-message h1 { margin:.4rem 0 .7rem; color:#fff9ec; font-size:clamp(2rem,6vw,4rem); font-family:Georgia,serif; }
+.flower-message p:not(.eyebrow) { color:var(--muted); }
+.flower-bouquet { width:min(52vw,245px); margin-top:.2rem; opacity:0; transform:scale(.45); filter:drop-shadow(0 22px 18px rgba(0,0,0,.35)); }
+.flower-bouquet img { display:block; width:100%; height:auto; }
+.flower-continue { visibility:hidden; opacity:0; transform:translateY(10px); }
+.flower-modal { display:grid; grid-template-columns:150px minmax(0,1fr); align-items:center; gap:1rem; text-align:left; }
+.flower-modal img { width:150px; max-height:230px; object-fit:contain; }
+.flower-modal .eyebrow { color:var(--gold); }
+.flower-modal h2 { margin:.2rem 0 .65rem; color:var(--text); font-family:Georgia,serif; }
+.flower-modal p:not(.eyebrow) { color:var(--muted); line-height:1.55; }
+@media (max-width:460px) { .flower-modal { grid-template-columns:1fr; text-align:center; } .flower-modal img { width:125px; margin:auto; } }
+@media (min-width:721px) { .flower-scene { gap:.8rem; padding:1.25rem; } .flower-message h1 { font-size:clamp(1.65rem,3.1vw,2.7rem); } .flower-bouquet { width:min(26vw,185px); } }
+@media (max-height:680px) { .flower-scene { gap:.55rem; padding:1rem; } .flower-message h1 { font-size:clamp(1.35rem,3.7vw,2.1rem); } .flower-bouquet { width:min(39vw,175px); } }
+
+/* Birthday gift reveal scene. */
+.gift-page-body { overflow-x:hidden; background:radial-gradient(circle at 50% 16%,#243d70 0,transparent 31%),linear-gradient(145deg,#050a15,#0b1a35 68%,#060914); }
+.gift-scene { position:relative; min-height:100svh; display:grid; justify-items:center; align-content:center; gap:.8rem; overflow:hidden; padding:2rem 1rem; text-align:center; }
+.gift-falling-ornaments { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.gift-falling-ornament { position:absolute; top:-45px; width:13px; height:28px; border-radius:999px; opacity:.75; background:#e6c48e; }
+.gift-falling-ornament--1 { width:19px; height:19px; border-radius:3px; background:#d47c91; }
+.gift-falling-ornament--2 { width:11px; height:29px; background:#a9bddf; transform:rotate(35deg); }
+.gift-intro { position:relative; z-index:1; }
+.gift-intro .eyebrow { color:var(--gold); }
+.gift-intro h1 { margin:.3rem 0 .45rem; color:#fff9ec; font-family:Georgia,serif; font-size:clamp(2rem,5vw,3.5rem); }
+.gift-intro p:not(.eyebrow) { color:var(--muted); }
+.gift-box { position:relative; z-index:1; width:min(50vw,260px); padding:0; border:0; background:transparent; cursor:pointer; filter:drop-shadow(0 18px 20px rgba(0,0,0,.38)); }
+.gift-box img { display:block; width:100%; }
+.gift-box:hover:not(.is-opened) { transform:translateY(-4px) scale(1.02); }
+.gift-lid { position:absolute; z-index:2; top:7%; left:5%; width:90%; height:24%; border-radius:12px; background:linear-gradient(160deg,rgba(31,63,119,.92),rgba(7,17,41,.95)); box-shadow:inset 0 2px rgba(255,255,255,.12),0 7px 9px rgba(0,0,0,.25); transform-origin:18% 90%; pointer-events:none; }
+.gift-lid::after { content:""; position:absolute; top:0; bottom:0; left:46%; width:9%; background:linear-gradient(90deg,#b88742,#f4d993,#b88742); }
+.gift-sparkles { position:absolute; top:25%; left:50%; color:#fff1bd; opacity:0; font-size:2rem; letter-spacing:.55rem; transform:translateX(-50%) scale(.5); text-shadow:0 0 18px #e6c48e; pointer-events:none; }
+.gift-rewards { width:min(100%,820px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; margin-top:.3rem; }
+.gift-reward-card { min-height:130px; visibility:hidden; display:grid; align-content:center; gap:.35rem; padding:1rem; color:var(--text); border:1px solid rgba(230,196,142,.28); border-radius:18px; background:linear-gradient(145deg,rgba(37,62,112,.7),rgba(8,17,39,.78)); box-shadow:0 12px 26px rgba(0,0,0,.18); transform:translateY(26px); }
+.gift-photo-item { visibility:hidden; opacity:0; transform:translateY(26px); }
+.gift-photo-item .gift-reward-card { visibility:visible; transform:none; }
+.gift-reward-card span { color:var(--gold); font-size:.72rem; font-weight:800; letter-spacing:.12em; }
+.gift-photo-slot { position:relative; min-height:145px; padding:0; overflow:hidden; cursor:pointer; place-items:center; text-align:center; border-style:dashed; }
+.gift-photo-slot::before { content:'+'; display:grid; place-items:center; width:38px; height:38px; margin-bottom:.4rem; border:1px solid rgba(230,196,142,.55); border-radius:50%; color:var(--gold); font-size:1.5rem; }
+.gift-photo-slot span { position:relative; z-index:1; }
+.gift-photo-input { position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+.gift-photo-slot img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .25s ease; }
+.gift-photo-slot.has-photo { border-style:solid; }
+.gift-photo-slot.has-photo::before,.gift-photo-slot.has-photo span { display:none; }
+.gift-photo-slot.has-photo img { opacity:1; }
+.gift-photo-actions { display:flex; justify-content:center; gap:.4rem; margin-top:.45rem; }
+.gift-photo-actions button { padding:.12rem .08rem; color:#fff9ec; border:0; border-bottom:1px solid rgba(255,249,236,.72); border-radius:0; background:transparent; font:700 .68rem/1.2 inherit; transition:color .2s ease,transform .2s ease,border-color .2s ease; }
+.gift-photo-actions button:not(:disabled) { cursor:pointer; }
+.gift-photo-actions button:not(:disabled):hover { transform:translateY(-2px); color:var(--gold); border-color:var(--gold); }
+.gift-photo-actions button:disabled { opacity:.35; }
+.gift-upload-note { width:min(100%,820px); margin:.2rem 0 0; color:var(--muted); text-align:center; font-size:.78rem; font-style:italic; }
+.gift-reward-card h2 { color:#fff9ec; font-family:Georgia,serif; font-size:1.15rem; }
+.gift-reward-card p { color:var(--muted); font-size:.84rem; line-height:1.45; }
+.party-hat { position:absolute; color:#e6c48e; font-size:3.5rem; opacity:.7; transform:rotate(18deg); }
+.party-hat,.party-confetti { z-index:0; pointer-events:none; }
+.gift-intro,.gift-box,.gift-rewards,.gift-upload-note { position:relative; z-index:1; }
+.party-hat--one { top:10%; left:9%; } .party-hat--two { right:10%; bottom:12%; transform:rotate(-18deg); color:#a9bddf; }
+.party-hat--two { display:none; }
+.party-confetti { position:absolute; width:11px; height:28px; border-radius:999px; background:#d47c91; transform:rotate(35deg); } .party-confetti--one { top:25%; right:14%; } .party-confetti--two { bottom:22%; left:13%; background:#e6c48e; transform:rotate(-30deg); }
+@media (max-width:560px) { .gift-scene { align-content:start; padding-top:4.5rem; } .gift-box { width:min(56vw,220px); } .gift-rewards { grid-template-columns:repeat(2,minmax(0,1fr)); width:min(100%,330px); } .gift-reward-card { min-height:110px; } .party-hat { font-size:2.3rem; } }
+
+/* Return to the flower and gift choices from the dashboard. */
+.dashboard-choice-link { justify-self:start; margin-top:.75rem; padding:.4rem .7rem; color:#fff9ec; border:1px solid rgba(230,196,142,.45); border-radius:999px; background:rgba(6,12,27,.32); font-size:.75rem; font-weight:700; transition:background .2s ease,transform .2s ease; }
+.dashboard-choice-link:hover { transform:translateX(-3px); background:rgba(230,196,142,.18); }
+.journey-choice-link { position:fixed; z-index:20; top:1rem; left:1rem; padding:.42rem .72rem; color:#fff9ec; border:1px solid rgba(230,196,142,.45); border-radius:999px; background:rgba(7,17,37,.78); box-shadow:0 8px 20px rgba(0,0,0,.24); font-size:.72rem; font-weight:700; backdrop-filter:blur(8px); }
+
+/* Reusable floating hearts for invitation and love-progress pages. */
+.love-floaties { position:fixed; z-index:5; inset:0; overflow:hidden; pointer-events:none; }
+.love-floaty { position:absolute; bottom:-10%; left:var(--left); color:#f1c979; opacity:0; font-size:var(--size); text-shadow:0 0 12px rgba(230,196,142,.4); animation:love-float-up var(--duration) var(--delay) linear infinite; }
+.app-shell,.journey { position:relative; z-index:1; }
+@keyframes love-float-up { 0% { transform:translateY(0) translateX(0) rotate(0deg); opacity:0; } 12% { opacity:.58; } 55% { transform:translateY(-48vh) translateX(16px) rotate(14deg); opacity:.42; } 100% { transform:translateY(-112vh) translateX(-10px) rotate(-12deg); opacity:0; } }
+@media (prefers-reduced-motion:reduce) { .love-floaty { animation:none; } }
+
+/* Opening invitation envelope before showing the formal invitation card. */
+.invitation-envelope-page { overflow:hidden; }
+.invitation-envelope-wrap { width:min(100%,620px); display:grid; justify-items:center; text-align:center; }
+.invitation-envelope-scene { position:relative; width:min(84vw,480px); aspect-ratio:1.48; cursor:pointer; filter:drop-shadow(0 22px 26px rgba(0,0,0,.38)); animation:envelope-ring 2.2s .25s ease-in-out infinite; }
+.invitation-envelope-scene:focus-visible { outline:2px solid var(--gold); outline-offset:8px; }
+.invitation-envelope-image { position:absolute; z-index:2; inset:0; width:100%; height:100%; object-fit:contain; transition:transform .85s cubic-bezier(.2,.85,.25,1),opacity .45s ease; }
+.invitation-letter-preview { display:none; }
+.invitation-letter-preview span { font-size:clamp(1rem,3.3vw,1.45rem); }
+.invitation-letter-preview i { width:46%; height:1px; background:#b88a3f; }
+.invitation-letter-preview small { color:#6f5125; font-family:Arial,sans-serif; font-size:.57rem; letter-spacing:.08em; text-transform:uppercase; }
+.invitation-seal { position:absolute; z-index:3; left:50%; bottom:18%; display:grid; place-items:center; width:48px; height:48px; color:#f5e5be; border:3px solid #6b4d28; border-radius:50%; background:radial-gradient(circle at 35% 28%,#a77d45,#5e3f21 68%); box-shadow:0 4px 8px rgba(0,0,0,.35); transform:translateX(-50%); transition:opacity .2s ease,transform .35s ease; }
+.invitation-envelope-scene.is-opening { pointer-events:none; }
+.invitation-envelope-scene.is-opening { animation:none; }
+.invitation-envelope-scene.is-opening .invitation-seal { opacity:0; transform:translateX(-50%) scale(.45); }
+.invitation-envelope-scene.is-opening .invitation-envelope-image { opacity:1; transform:translateY(-3px) scale(1.04); transform-origin:50% 50%; }
+.invitation-reading-card { position:absolute; z-index:4; top:34%; right:15%; bottom:25%; left:15%; display:grid; justify-items:center; align-content:center; gap:.55rem; padding:clamp(.45rem,1.8vw,.9rem) clamp(.7rem,4vw,1.4rem); color:#263c59; text-align:center; border:0; border-radius:0; background:transparent; box-shadow:none; opacity:0; pointer-events:none; transform:translateY(42px) scale(.9); transition:opacity .4s .25s ease,transform .75s .2s cubic-bezier(.2,.85,.25,1); }
+.invitation-reading-card .eyebrow { color:#735326; }
+.invitation-reading-card h1 { color:#13294b; font-family:Georgia,serif; font-size:clamp(1.15rem,5.3vw,1.8rem); line-height:1.1; }
+.invitation-reading-card p { max-width:100%; margin:0; font-size:clamp(.64rem,2.7vw,.84rem); line-height:1.3; }
+.invitation-reading-card .eyebrow { font-size:clamp(.52rem,2vw,.7rem); letter-spacing:.1em; }
+.invitation-reading-card .invitation-card__line { width:42px; }
+.invitation-reading-card .invitation-card__date { color:#735326; font-weight:700; white-space:normal; }
+.invitation-reading-card > * { position:relative; top:42px; }
+.invitation-reading-card .invitation-signature { color:#735326; font-family:Georgia,serif; font-size:clamp(.7rem,2.3vw,.9rem); font-style:italic; }
+.invitation-reading-card .button { margin-top:.25rem; pointer-events:auto; }
+.invitation-envelope-scene.is-opening .invitation-reading-card { opacity:1; pointer-events:auto; transform:translateY(8px) scale(1); }
+.invitation-envelope-copy { display:grid; justify-items:center; gap:.7rem; }
+.invitation-envelope-copy .eyebrow { color:var(--gold); }
+.invitation-envelope-copy .form-message { color:var(--gold); }
+.invitation-envelope-hint { color:#fff9ec; font-size:.88rem; letter-spacing:.08em; opacity:.8; }
+.invitation-envelope-scene.is-opening + .invitation-envelope-hint { opacity:0; transform:translateY(-8px); transition:opacity .2s ease,transform .2s ease; }
+.invitation-accept-button { margin-top:.2rem; opacity:0; pointer-events:none; transform:translateY(-10px); transition:opacity .35s .55s ease,transform .35s .55s ease; }
+.invitation-envelope-scene.is-opening ~ .invitation-accept-button { opacity:1; pointer-events:auto; transform:translateY(0); }
+
+/* Special-date memory page after the invitation. */
+.memory-page { background:radial-gradient(circle at 76% 38%,rgba(230,196,142,.17),transparent 28%),linear-gradient(135deg,#071126,#131633); }
+.memory-layout { width:min(100%,980px); display:grid; grid-template-columns:1fr 1fr; overflow:hidden; border:1px solid rgba(230,196,142,.32); border-radius:24px; box-shadow:0 25px 65px rgba(0,0,0,.3); }
+.memory-calendar { display:grid; align-content:center; gap:1rem; padding:clamp(1.5rem,4vw,3.5rem); color:#352b25; background:#fffaf0; }
+.memory-calendar header { display:flex; justify-content:space-between; padding:1rem; color:#fff8e9; background:#8f332c; font-family:Georgia,serif; font-size:clamp(1.3rem,3vw,2rem); }
+.calendar-week,.calendar-days { display:grid; grid-template-columns:repeat(7,1fr); gap:.45rem; text-align:center; }
+.calendar-week { color:#8d7563; font-size:.64rem; font-weight:800; }
+.calendar-days span,.calendar-days b { display:grid; place-items:center; aspect-ratio:1; font-style:normal; font-size:clamp(.72rem,1.7vw,1rem); }
+.calendar-days b { color:#fff; border-radius:50%; background:#8f332c; }
+.memory-calendar p { margin-top:1rem; font-family:Georgia,serif; font-size:clamp(1rem,2.2vw,1.4rem); }
+.memory-calendar mark { padding:.25rem .45rem; color:#fff8e9; background:#8f332c; }
+.memory-collage { position:relative; min-height:440px; overflow:hidden; padding:1.5rem; color:#fff8e9; background:linear-gradient(145deg,#7b261f,#351124); }
+.memory-next { position:absolute; z-index:3; top:1.25rem; right:1.25rem; padding:.45rem .8rem; color:#6d211d; border:0; border-radius:999px; background:#f2b8ab; font-weight:800; }
+.memory-title { position:absolute; top:4rem; right:2rem; font-family:Georgia,serif; font-size:1.5rem; transform:rotate(-8deg); }
+.memory-photo-frame { position:absolute; top:20%; right:14%; bottom:12%; left:14%; display:grid; grid-template-columns:repeat(2,1fr); gap:.45rem; padding:.65rem; border:10px solid #f6eddd; border-radius:47% 52% 46% 50%; background:#f6eddd; transform:rotate(-7deg); }
+.memory-photo-frame img { width:100%; height:100%; min-height:100px; object-fit:cover; border-radius:45%; background:#dac6bc; }
+.memory-photo-frame img:first-child { grid-column:span 2; }
+.memory-flower,.memory-sparkle { position:absolute; color:#efb1ae; font-size:3rem; text-shadow:0 4px 12px rgba(0,0,0,.25); }.memory-flower--one { right:7%; bottom:11%; }.memory-flower--two { bottom:6%; left:8%; color:#e6c48e; }.memory-sparkle { top:25%; left:8%; color:#fff8e9; }
+@media (max-width:650px) { .memory-layout { grid-template-columns:1fr; } .memory-collage { min-height:380px; } }
+
+/* Keep the special-date page inside the navy-and-champagne theme. */
+.memory-calendar { color:#14294d; }
+.memory-calendar header { background:linear-gradient(135deg,#19345f,#0a1730); }
+.calendar-week { color:#61708b; }
+.calendar-days b { color:#08162e; background:#e6c48e; }
+.memory-calendar mark { color:#08162e; background:#e6c48e; }
+.memory-collage { background:radial-gradient(circle at 70% 24%,rgba(230,196,142,.24),transparent 20%),linear-gradient(145deg,#1a3563,#071126 72%); }
+.memory-next { color:#08162e; background:#e6c48e; }
+.memory-flower,.memory-flower--two { color:#e6c48e; }
+
+/* Bottom-corner Next button in the shared champagne style. */
+.memory-next { top:auto; right:1.25rem; bottom:1.25rem; padding:.62rem 1rem; color:#08162e; border:1px solid #f5e5be; border-radius:12px; background:linear-gradient(135deg,#f5e5be,#c99e58); box-shadow:0 8px 18px rgba(0,0,0,.25); }
+.memory-next { font-size:0; }
+.memory-next::after { content:"Berikutnya"; font-size:.9rem; }
+.memory-layout { margin-bottom:0; overflow:hidden; }
+.memory-collage { overflow:hidden; padding-bottom:5rem; }
+.memory-next { top:auto; right:1.25rem; bottom:1.1rem; }
+
+/* Two realistic heart frames for the photo collage. */
+.memory-photo-frame { top:22%; right:10%; bottom:13%; left:10%; display:block; padding:0; border:0; border-radius:0; background:transparent; transform:none; }
+.memory-photo-frame img { position:absolute; z-index:1; width:62%; height:60%; min-height:0; border-radius:0; background:#16284b; object-fit:cover; clip-path:polygon(50% 92%,13% 63%,2% 38%,8% 18%,25% 8%,40% 13%,50% 27%,60% 13%,75% 8%,92% 18%,98% 38%,87% 63%); }
+.memory-photo-frame img:first-child { top:0; left:0; grid-column:auto; }
+.memory-photo-frame img:nth-child(2) { right:0; bottom:0; }
+.memory-photo-frame img:nth-child(3) { display:none; }
+.memory-photo-frame::before,.memory-photo-frame::after { content:""; position:absolute; z-index:2; width:70%; height:68%; background:url("../assets/images/heart-frame.png") center/contain no-repeat; pointer-events:none; }
+.memory-photo-frame::before { top:-5%; left:-5%; }
+.memory-photo-frame::after { right:-5%; bottom:-5%; transform:rotate(8deg); }
+
+/* Bring the two heart frames closer together as one collage. */
+.memory-photo-frame img { width:78%; height:76%; }
+.memory-photo-frame img:first-child { left:-4%; }
+.memory-photo-frame img:nth-child(2) { right:-4%; }
+.memory-photo-frame::before,.memory-photo-frame::after { width:88%; height:86%; }
+.memory-photo-frame::before { left:-9%; }
+.memory-photo-frame::after { right:-9%; }
+
+/* One connected, organic two-photo backdrop instead of two separate heart frames. */
+.memory-photo-frame::before { z-index:0; top:0; right:0; bottom:0; left:0; width:auto; height:auto; background:radial-gradient(ellipse at 32% 37%,#f5e5be 0 39%,transparent 40%),radial-gradient(ellipse at 68% 63%,#d9ba79 0 40%,transparent 41%),radial-gradient(ellipse at 48% 50%,#e6c48e 0 43%,transparent 44%); filter:drop-shadow(0 12px 16px rgba(0,0,0,.24)); }
+.memory-photo-frame::after { display:none; }
+.memory-photo-frame img { z-index:1; width:62%; height:62%; clip-path:none; border:5px solid #fff9ec; border-radius:48% 52% 44% 56% / 54% 45% 55% 46%; box-shadow:0 8px 15px rgba(0,0,0,.24); }
+.memory-photo-frame img:first-child { top:7%; left:5%; }
+.memory-photo-frame img:nth-child(2) { right:5%; bottom:7%; border-radius:55% 45% 53% 47% / 44% 56% 43% 57%; }
+
+/* Restore realistic heart borders while keeping one connected backdrop. */
+.memory-photo-frame { background:radial-gradient(ellipse at 32% 37%,rgba(245,229,190,.85) 0 39%,transparent 40%),radial-gradient(ellipse at 68% 63%,rgba(166,126,76,.72) 0 40%,transparent 41%),radial-gradient(ellipse at 48% 50%,rgba(211,177,109,.58) 0 43%,transparent 44%); }
+.memory-photo-frame::before,.memory-photo-frame::after { z-index:2; display:block; width:82%; height:80%; background:url("../assets/images/heart-frame.png") center/contain no-repeat; filter:none; }
+.memory-photo-frame::before { top:-2%; right:auto; bottom:auto; left:-2%; }
+.memory-photo-frame::after { top:auto; right:-2%; bottom:-2%; left:auto; transform:rotate(8deg); }
+
+/* Foto mengikuti bentuk love besar; tidak lagi memakai bingkai bulat. */
+.memory-photo-frame img { width:52%; height:65%; border:0; border-radius:0; object-position:center; clip-path:polygon(50% 94%,10% 62%,1% 35%,8% 15%,25% 5%,41% 12%,50% 28%,59% 12%,75% 5%,92% 15%,99% 35%,90% 62%); box-shadow:none; }
+.memory-photo-frame img { z-index:1; width:39%; height:49%; clip-path:polygon(50% 96%,13% 65%,4% 39%,10% 20%,27% 10%,41% 16%,50% 30%,59% 16%,73% 10%,90% 20%,96% 39%,87% 65%); }
+.memory-photo-frame img:first-child { top:15%; left:11%; }
+.memory-photo-frame img:nth-child(2) { right:10%; bottom:16%; }
+.memory-photo-frame img:first-child { top:6%; left:-1%; }
+.memory-photo-frame img:nth-child(2) { right:-1%; bottom:6%; }
+.memory-photo-frame::before,.memory-photo-frame::after { width:92%; height:108%; }
+.memory-photo-frame::before { top:-16%; left:-20%; }
+.memory-photo-frame::after { right:-20%; bottom:-16%; }
+
+/* Two independent heart frames: photos are clipped inside each blue heart border. */
+.memory-photo-frame::before,.memory-photo-frame::after { display:none; }
+.memory-photo-frame { top:18%; right:6%; bottom:13%; left:6%; background:radial-gradient(ellipse at 33% 38%,rgba(245,229,190,.85) 0 39%,transparent 40%),radial-gradient(ellipse at 68% 62%,rgba(166,126,76,.72) 0 40%,transparent 41%),radial-gradient(ellipse at 49% 50%,rgba(211,177,109,.58) 0 43%,transparent 44%); }
+.memory-heart { position:absolute; z-index:2; width:59%; height:78%; margin:0; filter:drop-shadow(0 8px 14px rgba(0,0,0,.26)); }
+.memory-heart::after { content:""; position:absolute; inset:0; z-index:2; pointer-events:none; background:url("../assets/images/heart-frame.png") center/contain no-repeat; }
+.memory-heart img { position:absolute; z-index:1; top:24%; right:auto; bottom:auto; left:20%; width:58%; height:53%; min-height:0; border:0; border-radius:0; object-fit:cover; object-position:center; clip-path:polygon(50% 96%,13% 65%,4% 39%,10% 20%,27% 10%,41% 16%,50% 30%,59% 16%,73% 10%,90% 20%,96% 39%,87% 65%); box-shadow:none; }
+.memory-photo-frame .memory-heart img:first-child { top:18%; right:auto; bottom:auto; left:18%; width:62%; height:60%; }
+.memory-heart--one { top:0; left:3%; }
+.memory-heart--two { right:3%; bottom:0; transform:rotate(7deg); }
+
+/* Hide the pink and blue placeholder-photo colors until real photos are added. */
+.memory-photo-frame img[src$=".svg"] { opacity:0; }
+
+/* Heart-fill Love Meter. */
+#love-meter-step .panel { position:relative; min-height:460px; align-content:center; justify-items:center; overflow:visible; }
+#love-meter-control.meter { position:relative; width:205px; height:190px; overflow:hidden; border:0; border-radius:0; background:rgba(255,255,255,.12); clip-path:path("M102 184 C85 169 12 116 12 61 C12 24 42 5 72 13 C88 17 98 29 102 39 C107 29 117 17 132 13 C162 5 193 24 193 61 C193 116 120 169 102 184 Z"); box-shadow:none; }
+#love-meter-control.meter::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.42),transparent 18%),linear-gradient(145deg,#56304b,#1a294c); }
+#love-meter-control.meter::after { content:none; }
+#love-meter-fill.meter__fill { position:absolute; right:0; bottom:0; left:0; width:100%; height:0; background:linear-gradient(180deg,#ffd3dd,#ec7896 55%,#b4466a); box-shadow:0 -8px 20px rgba(255,190,211,.55); transition:height .06s linear; }
+#love-meter-value { position:static; display:block; margin-top:.25rem; color:#f5e5be; font-size:clamp(2rem,7vw,3rem); }
+#love-meter-control.is-bursting { animation:heart-pop .55s ease forwards; }
+@keyframes heart-pop { 45% { transform:scale(1.25); filter:brightness(1.5); } 100% { transform:scale(0); opacity:0; } }
+.love-meter-burst { position:fixed; z-index:30; top:50%; left:50%; width:1px; height:1px; pointer-events:none; }
+.love-meter-burst span { position:absolute; color:#f08ba5; font-size:clamp(1rem,4vw,2rem); text-shadow:0 0 12px rgba(255,167,190,.8); animation:love-burst-rain 1.8s var(--delay) ease-out both; }
+@media (max-width:260px) { #love-meter-control.meter { transform:scale(.8); margin-block:-18px; } }
+@keyframes love-burst-rain { 0% { opacity:1; transform:translate(-50%,-50%) rotate(0) scale(.7); } 35% { opacity:1; transform:translate(calc(-50% + var(--x)), -32vh) rotate(calc(var(--rotate) * .45)) scale(1.2); } 100% { opacity:0; transform:translate(calc(-50% + var(--x)),45vh) rotate(var(--rotate)) scale(.8); } }
+@keyframes envelope-ring { 0%,72%,100% { transform:rotate(0deg); } 76% { transform:rotate(-2.2deg); } 80% { transform:rotate(2.2deg); } 84% { transform:rotate(-1.5deg); } 88% { transform:rotate(1.3deg); } 92% { transform:rotate(0deg); } }
+@media (max-width:480px) { .invitation-envelope-scene { width:min(92vw,390px); } .invitation-letter-preview { right:16%; left:16%; } }
+
+.journey-loader { position:fixed; inset:0; z-index:100; display:none; place-items:center; padding:1.5rem; background:radial-gradient(circle at 30% 20%,rgba(255,107,157,.23),transparent 32%),linear-gradient(135deg,#110d1a,#251532); } .journey-loader.is-visible { display:grid; } .journey-loader__card { width:min(100%,360px); display:grid; gap:1rem; justify-items:center; padding:2.3rem 1.5rem; text-align:center; border:1px solid var(--line); border-radius:24px; background:rgba(255,255,255,.08); box-shadow:0 25px 60px rgba(0,0,0,.3); } .journey-loader__heart { color:var(--accent); font-size:4rem; line-height:1; animation:loader-pulse .8s ease-in-out infinite alternate; } .journey-loader__card p:not(.eyebrow) { color:var(--muted); } .journey-loader__bar { width:100%; height:8px; overflow:hidden; border-radius:999px; background:rgba(255,255,255,.15); } .journey-loader__bar span { display:block; width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--accent),var(--gold)); animation:loader-progress 2s linear forwards; } @keyframes loader-pulse { to { transform:scale(1.16); filter:drop-shadow(0 0 14px var(--accent)); } } @keyframes loader-progress { to { width:100%; } }
+.is-dashboard-restore .journey-loader { display:grid; } .journey-loader__card { width:auto; padding:0; border:0; background:transparent; box-shadow:none; } .journey-loader__card p,.journey-loader__heart,.journey-loader__bar { display:none; } .journey-loader__card::before { content:"⚜"; display:grid; place-items:center; width:72px; height:72px; color:var(--gold); font-size:4.4rem; line-height:1; filter:drop-shadow(0 0 12px rgba(255,217,139,.55)); animation:loader-spin 1.2s linear infinite; } @keyframes loader-spin { to { transform:rotate(360deg); } }
+/* Love Meter now has its own page; Journey displays the dashboard only. */
+.journey #love-meter-step { display: none; }
+/* Fun Facts use the same visual card system as Photo Dump. */
+.fact-gallery .fact-card { display:flex; flex-direction:column; padding:0; overflow:hidden; text-align:left; }
+.fact-gallery .fact-card img { width:100%; aspect-ratio:1.25; object-fit:cover; }
+.fact-gallery .fact-card span { display:grid; gap:.35rem; padding:.9rem; }
+.fact-gallery .fact-card strong { color:var(--text); font-size:1rem; }
+.fact-gallery .fact-card small { display:-webkit-box; overflow:hidden; color:var(--muted); font-size:.84rem; line-height:1.45; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+/* Wish Orbit: sender-written wishes open one star at a time. */
+.wish-orbit { position:relative; display:grid; place-items:center; min-height:390px; overflow:hidden; border:1px solid var(--line); border-radius:var(--radius); background:radial-gradient(circle at 50% 50%,rgba(241,206,139,.15),transparent 16%),radial-gradient(circle at 16% 22%,rgba(126,158,213,.16),transparent 2px),radial-gradient(circle at 85% 73%,rgba(241,206,139,.2),transparent 2px),linear-gradient(145deg,#132a50,#060e20 73%); }
+.wish-orbit::before,.wish-orbit::after { content:""; position:absolute; width:clamp(150px,38vw,310px); aspect-ratio:1; border:1px solid rgba(241,206,139,.25); border-radius:50%; pointer-events:none; }
+.wish-orbit::after { width:clamp(240px,63vw,480px); border-color:rgba(191,210,247,.18); }
+.wish-orbit__ring { position:absolute; border:1px dashed rgba(241,206,139,.16); border-radius:50%; pointer-events:none; }
+.wish-orbit__ring--one { width:clamp(142px,36vw,294px); aspect-ratio:1; }
+.wish-orbit__ring--two { width:clamp(228px,60vw,460px); aspect-ratio:1; }
+.wish-orbit__sun { position:relative; z-index:2; display:grid; width:82px; aspect-ratio:1; place-items:center; border-radius:50%; color:#fff2ce; font-size:2.1rem; background:radial-gradient(circle at 35% 28%,#fff7d8,#edc572 45%,#9a5e25 100%); box-shadow:0 0 20px rgba(240,199,115,.9),0 0 70px rgba(240,199,115,.33); }
+.wish-orbit__sun small { position:absolute; top:calc(100% + .55rem); color:var(--text); font-family:Georgia,serif; font-size:.75rem; white-space:nowrap; }
+.wish-orbit__moon { position:relative; z-index:2; display:grid; width:82px; aspect-ratio:1; place-items:center; border-radius:50%; background:radial-gradient(circle at 35% 30%,#fffbea,#e7c98c 58%,#a86e39 100%); box-shadow:0 0 20px rgba(240,214,157,.85),0 0 70px rgba(240,199,115,.28); }
+.wish-orbit__moon span { position:absolute; top:15%; right:13%; width:44%; aspect-ratio:1; border-radius:50%; background:rgba(151,102,58,.22); box-shadow:-21px 25px 0 -7px rgba(151,102,58,.17),-37px 5px 0 -12px rgba(151,102,58,.18); }
+.wish-orbit__moon img { display:block; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 0 12px rgba(245,221,165,.86)); }
+.wish-orbit__moon small { position:absolute; top:calc(100% + .55rem); color:var(--text); font-family:Georgia,serif; font-size:.75rem; white-space:nowrap; }
+/* Keep the center as a photo-only full moon, without a decorative disk behind it. */
+.wish-orbit__moon { width:142px; background:none; box-shadow:none; }
+.wish-orbit__moon img { filter:drop-shadow(0 0 16px rgba(245,221,165,.72)); }
+.wish-orbit__star { position:absolute; z-index:4; top:50%; left:50%; width:36px; height:36px; padding:0; border:0; border-radius:50%; color:#f5d38e; font-size:1.65rem; line-height:1; background:transparent; transform:translate(-50%,-50%) rotate(var(--star-angle)) translateX(var(--orbit-radius)); animation:wish-orbit-spin 18s var(--orbit-delay) linear infinite; }
+.wish-orbit__star.is-available { cursor:pointer; color:#ffe6a4; filter:drop-shadow(0 0 8px rgba(255,218,132,.9)); animation-name:wish-orbit-spin,wish-star-glow; animation-duration:18s,1.5s; animation-delay:var(--orbit-delay),0s; animation-timing-function:linear,ease-in-out; animation-iteration-count:infinite; animation-direction:normal,alternate; }
+.wish-orbit__star.is-opened { color:#f09ab3; filter:drop-shadow(0 0 9px rgba(240,154,179,.9)); }
+.wish-orbit__star.is-locked { color:rgba(184,196,217,.35); filter:none; cursor:not-allowed; }
+.wish-orbit__star:focus-visible { outline:2px solid #fff0bf; outline-offset:4px; }
+.wish-orbit__star img { display:block; width:100%; height:100%; object-fit:contain; }
+/* A calm, slow orbit keeps the page dreamy instead of busy. */
+.wish-orbit__star { animation-duration:52s; }
+.wish-orbit__star.is-available { animation-duration:52s,2.8s; }
+.wish-orbit__star { width:44px; height:44px; font-size:2rem; }
+@keyframes wish-orbit-spin { from { transform:translate(-50%,-50%) rotate(var(--star-angle)) translateX(var(--orbit-radius)); } to { transform:translate(-50%,-50%) rotate(calc(var(--star-angle) + 360deg)) translateX(var(--orbit-radius)); } }
+@keyframes wish-star-glow { to { scale:1.18; } }
+@media (max-width:520px) { .wish-orbit { min-height:330px; } .wish-orbit__star { width:30px; height:30px; font-size:1.35rem; } }
+/* Dashboard lyric card: keeps long timed lines comfortably readable. */
+.dashboard-banner h1 { max-width:17ch; margin-bottom:.5rem; font-size:clamp(1.55rem,3vw,3rem); line-height:1.08; transition:opacity .2s ease; }
+.dashboard-banner h1.is-instrumental { color:#e6c48e; font-style:italic; }
+/* Spotify-like lyric state: the active timed line is bright; the rest stays muted. */
+.dashboard-banner--lyrics { display:grid; place-items:center start; overflow:hidden; }
+.dashboard-lyrics { display:grid; gap:.38rem; width:100%; max-width:28rem; }
+.dashboard-lyrics__line { margin:0; color:rgba(200,209,223,.42) !important; font-family:Georgia,serif; font-size:clamp(.88rem,1.7vw,1.25rem) !important; font-weight:700; line-height:1.18; transition:color .35s ease,transform .35s ease,opacity .35s ease; }
+.dashboard-lyrics__line.is-current { color:#fff8e9 !important; transform:scale(1.025); transform-origin:left center; text-shadow:0 0 18px rgba(230,196,142,.22); }
+.dashboard-lyrics__line.is-instrumental { color:rgba(230,196,142,.7) !important; font-style:italic; }
+.dashboard-lyrics__line.is-current.is-instrumental { color:#fff0bf !important; text-shadow:0 0 10px rgba(230,196,142,.9),0 0 26px rgba(230,196,142,.45); animation:instrumental-glow 1.4s ease-in-out infinite alternate; }
+@keyframes instrumental-glow { to { filter:brightness(1.16); text-shadow:0 0 15px rgba(255,239,191,1),0 0 34px rgba(230,196,142,.65); } }
+@media (max-width:720px) { .dashboard-lyrics { gap:.25rem; } .dashboard-lyrics__line { font-size:clamp(.66rem,2.6vw,.9rem) !important; } }
+
+/* Video latar tab lirik: lirik tetap berada di lapisan paling atas. */
+.dashboard-banner--lyrics { position:relative; isolation:isolate; background:#081226 !important; }
+.dashboard-banner__video { position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover; opacity:.62; }
+.dashboard-banner__video-overlay { position:absolute; inset:0; z-index:-1; background:linear-gradient(110deg,rgba(4,10,24,.9),rgba(5,13,31,.58) 58%,rgba(4,10,24,.84)); }
+.dashboard-banner--lyrics .dashboard-lyrics { position:relative; z-index:1; }
+
+/* Fun Facts: empat kartu per baris, fakta berikutnya otomatis ke baris bawah. */
+.fact-gallery { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+@media (max-width:720px) { .fact-gallery { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+
+/* Photo Dump: tiga foto per baris, lalu lanjut ke baris berikutnya. */
+#dashboard-content .gallery-grid:not(.fact-gallery) { grid-template-columns:repeat(3, minmax(0, 1fr)); }
+@media (max-width:720px) { #dashboard-content .gallery-grid:not(.fact-gallery) { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+
+/* Surat dibaca seperti halaman catatan pribadi yang hangat. */
+.dashboard-content .letter { max-width:760px; min-height:0; margin:0 auto; padding:clamp(1.4rem,4vw,2.5rem); color:#fff8e9; line-height:1.75; background:linear-gradient(145deg,rgba(20,36,68,.92),rgba(9,18,38,.96)); box-shadow:0 18px 40px rgba(0,0,0,.26); }
+.dashboard-content .letter p { margin:0; }
+.letter-translate { display:block; margin:1rem auto 0; padding:.55rem .95rem; color:var(--gold); border:1px solid rgba(230,196,142,.45); border-radius:999px; background:rgba(230,196,142,.08); font:600 .78rem/1.2 inherit; transition:background .2s ease,transform .2s ease; }
+.letter-translate[hidden] { display:none; }
+.letter-translate:hover { transform:translateY(-2px); background:rgba(230,196,142,.17); }
+/* Previous / next controls for the two-song dashboard player. */
+.dashboard-music-card__controls { display:flex; align-items:center; justify-content:center; gap:.75rem; width:100%; }
+.dashboard-music-card__skip { display:grid; width:28px; height:28px; place-items:center; padding:0; border:1px solid rgba(230,196,142,.36); border-radius:50%; color:#f5e5be; background:rgba(9,20,38,.6); font-size:1.55rem; line-height:1; transition:transform .2s ease,background .2s ease; }
+.dashboard-music-card__skip:hover { transform:scale(1.08); background:rgba(230,196,142,.18); }
+.dashboard-music-card__controls .dashboard-music-card__play { margin:0; }
+/* Polished mini-player controls. */
+.dashboard-music-card__controls { gap:.9rem; margin-top:.25rem; padding:.18rem .35rem; border-radius:999px; background:rgba(4,12,27,.34); }
+.dashboard-music-card__skip { width:32px; height:32px; border-color:rgba(245,229,190,.22); color:#f5e5be; background:transparent; font-size:0; box-shadow:none; }
+.dashboard-music-card__skip svg { width:17px; height:17px; fill:currentColor; }
+.dashboard-music-card__skip:hover { border-color:#e6c48e; color:#fff9ec; background:rgba(230,196,142,.16); }
+.dashboard-music-card__controls .dashboard-music-card__play { width:42px; height:42px; border:3px solid rgba(255,249,236,.22); box-shadow:0 5px 15px rgba(230,196,142,.34); }
+/* A slower photo loop gives each memory time to be seen. */
+.photo-slideshow--dashboard .photo-slideshow__track { animation-duration:52s; }
+/* Full-screen lily and edelweiss page transition. */
+.flower-transition { position:fixed; z-index:10000; inset:0; overflow:hidden; pointer-events:none; visibility:hidden; }
+.flower-transition.is-closing,.flower-transition.is-opening { visibility:visible; }
+.flower-transition__panel { position:absolute; display:block; background:#09142a url("../assets/images/lily-edelweiss-transition.png") center/cover no-repeat; box-shadow:0 0 28px rgba(3,8,20,.5); transition:transform .82s cubic-bezier(.7,0,.2,1); }
+.flower-transition__panel--top,.flower-transition__panel--bottom { right:-2vw; left:-2vw; height:56vh; }
+.flower-transition__panel--top { top:-1vh; transform:translateY(-105%); background-position:center top; }
+.flower-transition__panel--bottom { bottom:-1vh; transform:translateY(105%); background-position:center bottom; }
+.flower-transition__panel--left,.flower-transition__panel--right { top:-2vh; bottom:-2vh; width:54vw; }
+.flower-transition__panel--left { left:-1vw; transform:translateX(-105%); background-position:left center; }
+.flower-transition__panel--right { right:-1vw; transform:translateX(105%); background-position:right center; }
+.flower-transition.is-closing .flower-transition__panel,.flower-transition.is-opening:not(.is-revealing) .flower-transition__panel { transform:translate(0,0); }
+@media (max-width:650px) { .flower-transition__panel--top,.flower-transition__panel--bottom { height:58vh; } .flower-transition__panel--left,.flower-transition__panel--right { width:58vw; } }
+@media (prefers-reduced-motion:reduce) { .flower-transition__panel { transition-duration:.01ms; } }
+/* Sequential corner blooms: each floral circle arrives before the next one. */
+.flower-transition__panel { transition-duration:1.8s; transition-delay:0s; }
+.flower-transition__panel--top { --close-delay:0s; --open-delay:1.5s; z-index:1; }
+.flower-transition__panel--right { --close-delay:.5s; --open-delay:1s; z-index:2; }
+.flower-transition__panel--bottom { --close-delay:1s; --open-delay:.5s; z-index:3; }
+.flower-transition__panel--left { --close-delay:1.5s; --open-delay:0s; z-index:4; }
+.flower-transition::after { content:""; position:absolute; z-index:5; top:50%; left:50%; width:92vmax; height:92vmax; border-radius:50%; background:#09142a url("../assets/images/lily-edelweiss-transition.png") center/cover no-repeat; box-shadow:0 0 42px rgba(3,8,20,.65); transform:translate(-50%,-50%) scale(0) rotate(-160deg); transition:transform 1.5s cubic-bezier(.6,0,.12,1); }
+.flower-transition.is-closing .flower-transition__panel { transition-delay:var(--close-delay); }
+.flower-transition.is-opening.is-revealing .flower-transition__panel { transition-delay:var(--open-delay); }
+.flower-transition.is-closing::after,.flower-transition.is-opening:not(.is-revealing)::after { transform:translate(-50%,-50%) scale(1.35) rotate(210deg); }
+.flower-transition.is-closing::after { transition-delay:1.8s; }
+.flower-transition.is-opening.is-revealing::after { transition-delay:0s; }
+@media (prefers-reduced-motion:reduce) { .flower-transition__panel,.flower-transition::after { transition-duration:.01ms; transition-delay:0s; } }
+/* Floral curtain: two layered sides sweep in and meet at the center. */
+.flower-transition::after { display:none; }
+.flower-transition__panel { width:56vw; height:54vh; border-radius:0; transition:transform 2.05s cubic-bezier(.7,0,.18,1); }
+.flower-transition__panel--top { top:0; right:auto; bottom:auto; left:0; clip-path:polygon(0 0,90% 0,100% 50%,90% 100%,0 100%); transform:translateX(-112%) rotate(-9deg); background-position:left top; --curtain-delay:0s; }
+.flower-transition__panel--bottom { top:auto; right:auto; bottom:0; left:0; clip-path:polygon(0 0,90% 0,100% 50%,90% 100%,0 100%); transform:translateX(-112%) rotate(7deg); background-position:left bottom; --curtain-delay:.15s; }
+.flower-transition__panel--right { top:0; right:0; bottom:auto; left:auto; clip-path:polygon(10% 0,100% 0,100% 100%,10% 100%,0 50%); transform:translateX(112%) rotate(9deg); background-position:right top; --curtain-delay:0s; }
+.flower-transition__panel--left { top:auto; right:0; bottom:0; left:auto; clip-path:polygon(10% 0,100% 0,100% 100%,10% 100%,0 50%); transform:translateX(112%) rotate(-7deg); background-position:right bottom; --curtain-delay:.15s; }
+.flower-transition.is-closing .flower-transition__panel,.flower-transition.is-opening:not(.is-revealing) .flower-transition__panel { transform:translateX(0) rotate(0); transition-delay:var(--curtain-delay); }
+.flower-transition.is-opening.is-revealing .flower-transition__panel { transition-delay:var(--curtain-delay); }
+@media (max-width:650px) { .flower-transition__panel { width:68vw; height:53vh; } }
+/* Seamless two-piece floral curtain, with no circles, borders, or horizontal seams. */
+.flower-transition__panel--bottom,.flower-transition__panel--left { display:none; }
+.flower-transition__panel--top,.flower-transition__panel--right { display:block; top:0; bottom:0; width:61vw; height:100vh; border-radius:0; transition-duration:2.1s; }
+.flower-transition__panel--top { right:auto; left:0; clip-path:polygon(0 0,94% 0,99% 18%,96% 36%,100% 52%,95% 72%,99% 89%,94% 100%,0 100%); transform:translateX(-108%) rotate(-3deg); background-position:left center; --curtain-delay:0s; }
+.flower-transition__panel--right { right:0; left:auto; clip-path:polygon(6% 0,100% 0,100% 100%,6% 100%,1% 89%,5% 72%,0 52%,4% 36%,1% 18%); transform:translateX(108%) rotate(3deg); background-position:right center; --curtain-delay:.28s; }
+.flower-transition.is-closing .flower-transition__panel--top,.flower-transition.is-closing .flower-transition__panel--right,.flower-transition.is-opening:not(.is-revealing) .flower-transition__panel--top,.flower-transition.is-opening:not(.is-revealing) .flower-transition__panel--right { transform:translateX(0) rotate(0); }
+@media (max-width:650px) { .flower-transition__panel--top,.flower-transition__panel--right { width:68vw; } }
+/* Final curtain behavior: full height, no spin, no gaps, seamless floral texture. */
+.flower-transition__panel--top,.flower-transition__panel--right { top:0; bottom:0; width:64vw; height:100vh; clip-path:none; transition:transform 2.25s cubic-bezier(.72,0,.16,1); background-size:cover; }
+.flower-transition__panel--top { transform:translateX(-104%); background-position:left center; --curtain-delay:0s; }
+.flower-transition__panel--right { transform:translateX(104%); background-position:right center; --curtain-delay:0s; }
+.flower-transition.is-closing .flower-transition__panel--top,.flower-transition.is-closing .flower-transition__panel--right,.flower-transition.is-opening:not(.is-revealing) .flower-transition__panel--top,.flower-transition.is-opening:not(.is-revealing) .flower-transition__panel--right { transform:translateX(0); }
+.flower-transition.is-closing .flower-transition__panel--top { right:auto; left:0; }
+.flower-transition.is-closing .flower-transition__panel--right { right:0; left:auto; }
+@media (max-width:650px) { .flower-transition__panel--top,.flower-transition__panel--right { width:70vw; } }
+/* Rounded floral blooms enter from the four screen corners instead of square panels. */
+.flower-transition__panel { width:76vmax; height:76vmax; border-radius:50%; transition:transform 1.55s cubic-bezier(.6,0,.12,1); will-change:transform; }
+.flower-transition__panel--top { top:calc(-38vmax + 1px); right:auto; bottom:auto; left:calc(-38vmax + 1px); --open-turn:-135deg; --closed-turn:225deg; transform:scale(0) rotate(var(--open-turn)); background-position:left top; }
+.flower-transition__panel--right { top:calc(-38vmax + 1px); right:calc(-38vmax + 1px); bottom:auto; left:auto; --open-turn:135deg; --closed-turn:-225deg; transform:scale(0) rotate(var(--open-turn)); background-position:right top; }
+.flower-transition__panel--bottom { top:auto; right:calc(-38vmax + 1px); bottom:calc(-38vmax + 1px); left:auto; --open-turn:45deg; --closed-turn:405deg; transform:scale(0) rotate(var(--open-turn)); background-position:right bottom; }
+.flower-transition__panel--left { top:auto; right:auto; bottom:calc(-38vmax + 1px); left:calc(-38vmax + 1px); --open-turn:-45deg; --closed-turn:-405deg; transform:scale(0) rotate(var(--open-turn)); background-position:left bottom; }
+.flower-transition.is-closing .flower-transition__panel,.flower-transition.is-opening:not(.is-revealing) .flower-transition__panel { transform:scale(1.62) rotate(var(--closed-turn)); }
+@media (max-width:650px) { .flower-transition__panel { width:94vmax; height:94vmax; } .flower-transition__panel--top { top:calc(-47vmax + 1px); left:calc(-47vmax + 1px); } .flower-transition__panel--right { top:calc(-47vmax + 1px); right:calc(-47vmax + 1px); } .flower-transition__panel--bottom { right:calc(-47vmax + 1px); bottom:calc(-47vmax + 1px); } .flower-transition__panel--left { bottom:calc(-47vmax + 1px); left:calc(-47vmax + 1px); } }
+@media (prefers-reduced-motion:reduce) { .flower-transition__panel { transition-duration:.01ms; } }
+/* Gentle night-sky page change: a champagne glow fades between pages. */
+.page-glow-transition { position:fixed; z-index:10000; inset:0; pointer-events:none; opacity:0; background:radial-gradient(circle at 50% 50%,rgba(255,244,208,.82) 0,rgba(230,196,142,.28) 16%,rgba(6,10,20,.82) 58%,#060a14 100%); transition:opacity .68s ease; }
+.page-glow-transition.is-active { opacity:1; }
+body { transition:opacity .58s ease,filter .58s ease; }
+body.is-page-glow-enter { opacity:0; filter:brightness(1.22); }
+@media (prefers-reduced-motion:reduce) { .page-glow-transition,body { transition-duration:.01ms; } }
+/* Full-screen night-sky crossfade for the romantic flow. */
+.night-sky-transition { position:fixed; z-index:10000; inset:0; pointer-events:none; opacity:0; background:radial-gradient(circle at 18% 23%,rgba(255,248,225,.95) 0 1px,transparent 2px),radial-gradient(circle at 78% 32%,rgba(230,196,142,.85) 0 1.2px,transparent 2.3px),radial-gradient(circle at 64% 77%,rgba(255,248,225,.7) 0 1px,transparent 2px),radial-gradient(circle at 34% 72%,rgba(230,196,142,.65) 0 1.2px,transparent 2.4px),radial-gradient(circle at 50% 50%,rgba(40,63,108,.42),transparent 44%),linear-gradient(135deg,#030714,#0b1a35 55%,#040914); transition:opacity .9s ease; }
+.night-sky-transition::before,.night-sky-transition::after { content:"✦"; position:absolute; color:#f5e5be; text-shadow:0 0 14px rgba(230,196,142,.9); animation:night-star-twinkle 1.6s ease-in-out infinite alternate; }
+.night-sky-transition::before { top:26%; left:35%; font-size:1.3rem; }
+.night-sky-transition::after { right:24%; bottom:28%; font-size:1rem; animation-delay:.7s; }
+.night-sky-transition.is-covering { opacity:1; }
+.night-sky-transition.is-covering.is-revealing { opacity:0; }
+html.is-night-sky-loading::before { content:""; position:fixed; z-index:10001; inset:0; pointer-events:none; opacity:1; background:radial-gradient(circle at 18% 23%,rgba(255,248,225,.95) 0 1px,transparent 2px),radial-gradient(circle at 78% 32%,rgba(230,196,142,.85) 0 1.2px,transparent 2.3px),radial-gradient(circle at 64% 77%,rgba(255,248,225,.7) 0 1px,transparent 2px),linear-gradient(135deg,#030714,#0b1a35 55%,#040914); transition:opacity .9s ease; }
+@keyframes night-star-twinkle { to { scale:1.45; filter:brightness(1.3); } }
+@media (prefers-reduced-motion:reduce) { .night-sky-transition { transition-duration:.01ms; } .night-sky-transition::before,.night-sky-transition::after { animation:none; } }

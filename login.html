@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/login-extra.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="page page--center active">
+
+      <!-- ornamen mengambang, murni dekoratif -->
+      <div class="floaties" aria-hidden="true">
+        <span class="floaty floaty--1">♥</span>
+        <span class="floaty floaty--2">✦</span>
+        <span class="floaty floaty--3">♥</span>
+        <span class="floaty floaty--4">✦</span>
+        <span class="floaty floaty--5">♥</span>
+      </div>
+
+      <div class="panel panel--narrow stack login-panel">
+        <p class="muted">
+          Silahkan masukkan PIN untuk membuka undangan spesial ini.
+        </p
+
+        <form id="login-form" class="stack" novalidate>
+          <input
+            id="pin-input"
+            name="pin"
+            type="password"
+            readonly
+            maxlength="6"
+            aria-label="PIN yang dimasukkan"
+            required
+            class="pin-input--hidden">
+
+          <div class="pin-boxes" id="pin-boxes" aria-hidden="true">
+            <span class="pin-box" data-box="0"></span>
+            <span class="pin-box" data-box="1"></span>
+            <span class="pin-box" data-box="2"></span>
+            <span class="pin-box" data-box="3"></span>
+            <span class="pin-box" data-box="4"></span>
+            <span class="pin-box" data-box="5"></span>
+          </div>
+
+          <div class="pin-keypad" aria-label="Keypad PIN">
+            <button type="button" data-pin-digit="1" aria-label="Angka 1">1</button>
+            <button type="button" data-pin-digit="2" aria-label="Angka 2">2</button>
+            <button type="button" data-pin-digit="3" aria-label="Angka 3">3</button>
+            <button type="button" data-pin-digit="4" aria-label="Angka 4">4</button>
+            <button type="button" data-pin-digit="5" aria-label="Angka 5">5</button>
+            <button type="button" data-pin-digit="6" aria-label="Angka 6">6</button>
+            <button type="button" data-pin-digit="7" aria-label="Angka 7">7</button>
+            <button type="button" data-pin-digit="8" aria-label="Angka 8">8</button>
+            <button type="button" data-pin-digit="9" aria-label="Angka 9">9</button>
+            <button type="button" data-pin-action="clear" aria-label="Hapus satu angka">←</button>
+            <button type="button" data-pin-digit="0" aria-label="Angka 0">0</button>
+            <button type="button" data-pin-action="clear-all" aria-label="Hapus semua angka">C</button>
+          </div>
+
+          <p id="login-error" class="form-message" aria-live="polite"></p>
+
+          <button type="button" id="pin-hint-toggle" class="link-button">Lupa PIN?</button>
+          <p id="pin-hint" class="muted login-hint" hidden>
+            PIN NYA TANGGAL ULANG TAHUN KAMU NAFII
+          </p>
+        </form>
+
+        <p class="login-footnote">-with love.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/animation.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/loveMeter.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/wish.js"></script>
+  <script src="js/login-extra.js"></script>
+</body>
+</html>

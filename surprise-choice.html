@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pilih Kejutan</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>if(sessionStorage.getItem('birthday-surprise:nightSkyTransition'))document.documentElement.classList.add('is-night-sky-loading');</script>
+</head>
+<body>
+  <main class="app-shell">
+    <section class="page page--center active">
+      <div class="page-content choice-page">
+        <p class="eyebrow">Satu pilihan kecil</p>
+        <h1>Pilih kejutanmu</h1>
+        <p class="choice-page__intro">Kamu mau menerima bunga atau hadiah dulu?</p>
+        <div class="surprise-choice-grid" role="group" aria-label="Pilihan kejutan">
+          <button class="surprise-choice surprise-choice--flower-teaser" type="button" data-surprise-choice="flower" aria-label="Buka kejutan bunga">
+            <img src="assets/images/bouquet-lily-edelweiss.png" alt="" aria-hidden="true">
+            <span class="surprise-choice__question" aria-hidden="true">?</span>
+            <span class="surprise-choice__icon" aria-hidden="true">✿</span>
+            <strong>Bunga</strong>
+            <small>Untuk membuat harimu lebih manis.</small>
+          </button>
+          <button class="surprise-choice surprise-choice--gift-teaser" type="button" data-surprise-choice="gift" aria-label="Buka kejutan hadiah">
+            <svg class="surprise-choice__gift-silhouette" viewBox="0 0 160 170" aria-hidden="true"><path d="M21 65h118v87H21zM15 48h130v27H15zM74 48V27c0-13 11-21 24-18 10 3 15 16 7 25L89 48M86 48V27C86 14 75 6 62 9c-10 3-15 16-7 25l16 14M74 75h12v77H74z" fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-width="7"/></svg>
+            <img class="surprise-choice__gift-image" src="assets/images/gift-box-open.png" alt="" aria-hidden="true">
+            <span class="surprise-choice__question" aria-hidden="true">?</span>
+            <span class="surprise-choice__icon" aria-hidden="true">🎁</span>
+            <strong>Hadiah</strong>
+            <small>Ada sesuatu yang sudah disiapkan untukmu.</small>
+          </button>
+        </div>
+        <button id="choice-continue-button" class="button button--primary is-hidden" type="button" disabled>Berikutnya</button>
+      </div>
+    </section>
+  </main>
+  <script src="js/app.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/animation.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/loveMeter.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/wish.js"></script>
+  <script src="js/surpriseChoice.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | Birthday Surprise</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <main class="app-shell">
+    <section class="page active">
+      <div class="page-content dashboard-layout">
+        
+        <!-- Hero Section: Pemutar Musik & Banner -->
+        <div class="dashboard-hero">
+          <div class="dashboard-music-card">
+            <img id="dashboard-album-cover" class="dashboard-music-card__cover" src="assets/images/album-cover.svg" alt="Cover album">
+            
+            <div class="dashboard-music-card__details">
+              <small id="dashboard-track-artist">Artist Name</small>
+              <strong id="dashboard-track-title">Song One</strong>
+              
+              <div class="dashboard-music-card__progress">
+                <span id="dashboard-music-current">0:00</span>
+                <input id="dashboard-music-progress" type="range" min="0" max="100" value="0" aria-label="Progress lagu">
+                <span id="dashboard-music-duration">0:00</span>
+              </div>
+            </div>
+            
+            <button id="dashboard-play-button" class="dashboard-music-card__play" type="button" aria-label="Play">▶</button>
+            <audio id="dashboard-audio" preload="metadata"></audio>
+          </div>
+
+          <header class="dashboard-banner">
+            <h1>Happy Birthday!</h1>
+            <p>Semua kejutan spesialmu sudah terbuka.</p>
+          </header>
+        </div>
+
+        <!-- Slideshow Foto -->
+        <div class="photo-slideshow photo-slideshow--dashboard" aria-label="Slideshow foto kenangan">
+          <div class="photo-slideshow__track" id="music-slideshow"></div>
+        </div>
+
+        <!-- Navigasi Menu Tab -->
+        <nav class="dashboard-tabs" aria-label="Menu kejutan">
+          <button class="dashboard-tab is-active" type="button" data-dashboard-view="gallery">Photo Dump</button>
+          <button class="dashboard-tab" type="button" data-dashboard-view="letter">Love Letter</button>
+          <button class="dashboard-tab" type="button" data-dashboard-view="facts">Fun Facts</button>
+          <button class="dashboard-tab" type="button" data-dashboard-view="wishes">Wish Upon A Star</button>
+        </nav>
+
+        <!-- Kontainer Konten Dinamis -->
+        <section id="dashboard-content" class="dashboard-content" aria-live="polite"></section>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Komponen Modal Pop-up -->
+  <div class="modal" id="app-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__content">
+      <button class="modal__close" type="button" aria-label="Tutup" data-modal-close>&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Skrip JavaScript -->
+  <script src="js/app.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/animation.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/loveMeter.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/wish.js"></script>
+  <script src="js/dashboard.js"></script>
+
+</body>
+</html>

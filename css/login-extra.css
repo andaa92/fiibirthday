@@ -1,0 +1,167 @@
+/* ==========================================================
+   login-extra.css
+   Tambahan khusus halaman login: ornamen, animasi, polish.
+   File terpisah supaya tidak perlu bongkar style.css utama.
+   ========================================================== */
+
+/* --- contoh format PIN, sedikit lebih redup dari muted biasa --- */
+.login-example{
+  font-size:.85rem;
+  opacity:.75;
+  margin-top:-.25rem;
+}
+
+/* --- link "Lupa PIN?" --- */
+.link-button{
+  background:none;
+  border:none;
+  color: rgba(255,255,255,.7);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size:.85rem;
+  cursor:pointer;
+  padding:.25rem;
+  margin-top:.25rem;
+  transition: color .2s ease;
+}
+.link-button:hover,
+.link-button:focus-visible{
+  color:#fff;
+}
+
+.login-hint{
+  font-size:.85rem;
+  text-align:center;
+  animation: fadeIn .3s ease;
+}
+
+@keyframes fadeIn{
+  from{ opacity:0; transform:translateY(-4px); }
+  to  { opacity:1; transform:translateY(0); }
+}
+
+/* --- footnote kecil di bawah panel --- */
+.login-footnote{
+  margin-top:1.25rem;
+  text-align:center;
+  font-size:.75rem;
+  font-style:italic;
+  opacity:.55;
+  letter-spacing:.02em;
+}
+
+/* --- kotak-kotak PIN pengganti input polos --- */
+
+/* input asli tetap ada di DOM (login.js masih menulis ke sini),
+   tapi disembunyikan secara visual, bukan lewat display:none,
+   supaya focus()/value tetap aman dipakai script lama */
+.pin-input--hidden{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+
+.pin-boxes{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:1.15rem;
+  margin: .25rem auto;
+}
+
+.pin-box{
+  width:.85rem;
+  height:.85rem;
+  border-radius:50%;
+  background: transparent;
+  border:1.5px solid var(--line, rgba(140,43,57,.35));
+  transition: background .18s ease, border-color .18s ease, transform .15s ease;
+}
+
+.pin-box.is-filled{
+  background: var(--accent, #9c2b3c);
+  border-color: var(--accent, #9c2b3c);
+  transform: scale(1.05);
+}
+
+/* titik yang sedang "aktif" (posisi berikutnya) dapat highlight halus */
+.pin-box.is-current{
+  border-color: var(--accent, #9c2b3c);
+}
+
+@media (max-width: 380px){
+  .pin-box{ width:.75rem; height:.75rem; }
+  .pin-boxes{ gap:.9rem; }
+}
+
+/* --- state error: shake + glow merah lembut --- */
+.pin-shake{
+  animation: pinShake .4s ease;
+}
+@keyframes pinShake{
+  0%,100%{ transform: translateX(0); }
+  20%    { transform: translateX(-6px); }
+  40%    { transform: translateX(6px); }
+  60%    { transform: translateX(-4px); }
+  80%    { transform: translateX(4px); }
+}
+
+#login-error:not(:empty){
+  color:#b3273b;
+  text-shadow: none;
+}
+
+.pin-boxes.pin-boxes--error .pin-box{
+  border-color: #b3273b;
+  box-shadow: 0 0 0 3px rgba(179,39,59,.15);
+}
+
+/* --- ornamen mengambang di seluruh section --- */
+.floaties{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+}
+
+.floaty{
+  position:absolute;
+  color: var(--accent-soft, #e3a7ad);
+  opacity:.55;
+  font-size:1rem;
+  animation: floatUp 12s linear infinite;
+}
+
+.floaty--1{ left:8%;  bottom:-5%; font-size:1.1rem; animation-duration:14s; animation-delay:0s;  }
+.floaty--2{ left:22%; bottom:-5%; font-size:.7rem;  animation-duration:10s; animation-delay:2s;  }
+.floaty--3{ left:48%; bottom:-5%; font-size:1.3rem; animation-duration:16s; animation-delay:4s;  }
+.floaty--4{ left:68%; bottom:-5%; font-size:.8rem;  animation-duration:11s; animation-delay:1s;  }
+.floaty--5{ left:85%; bottom:-5%; font-size:1rem;   animation-duration:13s; animation-delay:5s;  }
+
+@keyframes floatUp{
+  0%  { transform: translateY(0) translateX(0) rotate(0deg);   opacity:0; }
+  10% { opacity:.6; }
+  50% { transform: translateY(-45vh) translateX(12px) rotate(10deg); opacity:.5; }
+  90% { opacity:.15; }
+  100%{ transform: translateY(-95vh) translateX(-8px) rotate(-8deg); opacity:0; }
+}
+
+/* pastikan panel tetap di atas ornamen */
+.login-panel{
+  position:relative;
+  z-index:1;
+}
+
+/* hormati preferensi pengguna yang sensitif terhadap gerak */
+@media (prefers-reduced-motion: reduce){
+  .floaty, .pin-shake{
+    animation: none !important;
+  }
+}

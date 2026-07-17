@@ -1,0 +1,5 @@
+(function (App) {
+  /** Opens the envelope and reveals the readable invitation on the same page. */
+  App.Invitation = { init() { const open = document.getElementById('invitation-envelope-scene'); if (open) { const openImage = new Image(); openImage.src = 'assets/images/invitation-open-composite.png'; const reveal = () => { if (open.classList.contains('is-opening') || (!App.config.testingMode && new Date() < new Date(App.config.birthdayDate))) return; open.setAttribute('aria-disabled', 'true'); const image = open.querySelector('.invitation-envelope-image'); image.src = openImage.src; image.alt = 'Amplop terbuka dengan surat undangan'; open.classList.add('is-opening'); }; open.addEventListener('click', event => { if (!event.target.closest('#invitation-accept-button')) reveal(); }); open.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); reveal(); } }); } const accept = document.getElementById('invitation-accept-button'); if (accept) accept.addEventListener('click', () => App.Router.navigate('birthday-memory')); } };
+}(window.BirthdayApp));
+  
